@@ -3,6 +3,7 @@ const session = require("express-session");
 const store = require("better-express-store");
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
+const subforumRoutes = require("./routes/subforumRoutes");
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use(
 app.use(express.json());
 app.use("/auth/v1", authRoutes);
 app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/subforums", subforumRoutes);
 
 app.listen(3000, () => {
   console.log("Listening on port 3000");

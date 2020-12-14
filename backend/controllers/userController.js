@@ -5,7 +5,7 @@ const db = sqlite3("./forum.db"); // I dont understand why only one "./"" works 
 
 const getAllUsers = (req, res) => {
   let query = db.prepare(/*sql*/ `
-    SELECT * FROM users;
+    SELECT * FROM users
   `);
   res.json(query.all().map((user) => ({ ...user, password: undefined })));
 };
