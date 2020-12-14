@@ -1,6 +1,5 @@
 <template>
-  <div id="app">
-    <router-view />
+  <div class="home-page">
   </div>
 </template>
 
@@ -8,9 +7,7 @@
 import { Vue, Component } from "vue-property-decorator";
 
 @Component
-export default class App extends Vue {
-  
-}
+export default class Home extends Vue {}
 </script>
 
-<style lang="scss"></style>
+<style lang="scss" scoped></style>
