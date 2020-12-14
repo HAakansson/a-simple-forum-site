@@ -1,4 +1,5 @@
 const sqlite3 = require("better-sqlite3");
+
 const db = sqlite3("./forum.db"); // I dont understand why only one "./"" works and not "../". Should be "../"
 
 const getAllSubforums = (req, res) => {

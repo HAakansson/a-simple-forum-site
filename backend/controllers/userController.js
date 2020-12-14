@@ -4,6 +4,7 @@ const sqlite3 = require("better-sqlite3");
 const db = sqlite3("./forum.db"); // I dont understand why only one "./"" works and not "../". Should be "../".
 
 const getAllUsers = (req, res) => {
+  console.log("Hejsan")
   let query = db.prepare(/*sql*/ `
     SELECT * FROM users
   `);
