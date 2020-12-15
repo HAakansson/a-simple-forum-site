@@ -1,7 +1,7 @@
 <template>
   <div class="bg-secondary">
     <div class="lower-navbar container ">
-      <p v-for="(subforum, index) in subforums" :key="index">{{ subforum }}</p>
+      <p v-for="subforum in subforums" :key="subforum.id">{{ subforum.name }}</p>
     </div>
   </div>
 </template>
@@ -14,10 +14,6 @@ export default class LowerNavBar extends Vue {
 
   get subforums () {
     return this.$store.state.subforumStore.subforums;
-  }
-
-  created() {
-    this.$store.dispatch("subforumStore/fetchAllSubforums");
   }
 }
 </script>

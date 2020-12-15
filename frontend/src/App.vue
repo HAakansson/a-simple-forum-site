@@ -22,7 +22,11 @@ import InfoWrapper from "./components/InfoWrapper";
     InfoWrapper,
   },
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  created() {
+    this.$store.dispatch("subforumStore/fetchAllSubforums");
+  }
+}
 </script>
 
 <style lang="scss">
@@ -55,6 +59,10 @@ body {
 .container {
   margin: 0 auto;
   width: 70%;
+}
+
+p {
+  margin: 0;
 }
 
 .primary {

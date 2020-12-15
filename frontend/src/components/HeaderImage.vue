@@ -16,6 +16,7 @@ export default class Header extends Vue {}
   align-items: center;
   background-image: url("https://www.aa.com/content/images/customer-service/programs-products/group-meeting-travel-banner.jpg");
   background-repeat: no-repeat;
+  background-size: cover;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   display: flex;
   font-family: "Patua One", cursive;
