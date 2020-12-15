@@ -2,8 +2,16 @@
   <div class="subject-row">
     <div class="subject">
       <p class="subject-name bold underline">{{ subforum.name }}</p>
-      <div class="subject-info">1000 ämnen</div>
+      <div class="subforum-info">
+        <span v-if="subjectCount !== null" class="subject-info"
+          >{{ subjectCount }} ämnen -
+        </span>
+        <span v-if="postCount !== null" class="subject-info"
+          >{{ postCount }} inlägg</span
+        >
+      </div>
     </div>
+
     <div class="newest-post">
       <p>Hejsan</p>
     </div>
@@ -17,6 +25,26 @@ import { Vue, Component, Prop } from "vue-property-decorator";
 export default class SubforumRow extends Vue {
   @Prop()
   subforum;
+
+  subjectCount = null;
+  postCount = null;
+
+  async fetchAllSubjectsBySubforumId(subforumId) {
+    let subjectCount = await fetch(`/api/v1/subjects/${subforumId}/count`);
+    subjectCount = await subjectCount.json();
+    this.subjectCount = subjectCount;
+  }
+
+  async fetchAllPostsBySubForumId(subforumId) {
+    let postCount = await fetch(`/api/v1/posts/${subforumId}/count`);
+    postCount = await postCount.json();
+    this.postCount = postCount;
+  }
+
+  async created() {
+    this.fetchAllSubjectsBySubforumId(this.subforum.id);
+    this.fetchAllPostsBySubForumId(this.subforum.id);
+  }
 }
 </script>
 
@@ -34,6 +62,10 @@ export default class SubforumRow extends Vue {
   .subject {
     background: rgb(240, 240, 240);
     padding-left: 0.5rem;
+
+    .subforum.info {
+      display: flex;
+    }
   }
 
   .newest-post {
