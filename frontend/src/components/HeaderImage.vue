@@ -22,7 +22,6 @@ export default class Header extends Vue {}
   font-family: "Patua One", cursive;
   height: 35vh;
   justify-content: center;
-  margin-top: 1rem;
 
   h1 {
     font-size: 4rem;

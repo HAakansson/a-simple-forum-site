@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <nav-bar />
-    <main class="container">
+    <main class="container bg-secondary">
       <header-image />
       <info-wrapper />
       <router-view />
@@ -61,6 +61,10 @@ body {
   width: 70%;
 }
 
+main {
+  padding: 1rem 1rem 1rem;
+}
+
 p {
   margin: 0;
 }
@@ -71,5 +75,9 @@ p {
 
 .secondary {
   color: whitesmoke;
+}
+
+.underline {
+  text-decoration: underline;
 }
 </style>

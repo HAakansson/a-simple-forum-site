@@ -4,8 +4,8 @@
       <p class="name">{{ subforum.name }}</p>
       <span class="collapse-button material-icons">minimize</span>
     </div>
-    <div class="subject-wrapper">
-      <subject-row />
+    <div class="subjects-wrapper">
+      <subject-row v-for="subject in subjects" :key="subject.id" :subject="subject" />
     </div>
   </div>
 </template>
@@ -22,6 +22,12 @@ import SubjectRow from "./SubjectRow";
 export default class SubforumListItem extends Vue {
   @Prop()
   subforum;
+
+  get subjects() {
+    return this.$store.state.subjectStore.subjects?.filter(
+      (subject) => subject.subforum_id === this.subforum.id
+    );
+  }
 }
 </script>
 
