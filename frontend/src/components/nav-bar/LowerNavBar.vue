@@ -1,9 +1,7 @@
 <template>
   <div class="bg-secondary">
     <div class="lower-navbar container ">
-      <p>Mat</p>
-      <p>Sport</p>
-      <p>Vetenskap</p>
+      <p v-for="(subforum, index) in subforums" :key="index">{{ subforum }}</p>
     </div>
   </div>
 </template>
@@ -12,7 +10,16 @@
 import { Vue, Component } from "vue-property-decorator";
 
 @Component
-export default class LowerNavBar extends Vue {}
+export default class LowerNavBar extends Vue {
+
+  get subforums () {
+    return this.$store.state.subforumStore.subforums;
+  }
+
+  created() {
+    this.$store.dispatch("subforumStore/fetchAllSubforums");
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -28,6 +35,10 @@ export default class LowerNavBar extends Vue {}
     margin: 0;
     margin-right: 2rem;
     padding: 0.3rem;
+
+    &:first-child {
+      margin-left: -0.3rem;
+    }
 
     &:hover {
       background: gray;

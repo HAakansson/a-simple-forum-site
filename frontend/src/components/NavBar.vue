@@ -23,7 +23,6 @@ export default class NavBar extends Vue {}
 .navbar {
   display: grid;
   grid-template-rows: 1fr 0.7fr;
-  font-family: "Heebo", sans-serif;
   height: 8vh;
   width: 100vw;
 }

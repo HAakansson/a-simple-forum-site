@@ -1,31 +1,41 @@
 <template>
   <div id="app">
     <nav-bar />
-    <router-view />
+    <main class="container">
+      <header-image />
+      <info-wrapper />
+      <router-view />
+    </main>
   </div>
 </template>
 
 <script>
 import { Vue, Component } from "vue-property-decorator";
-import NavBar from "./components/home-page/NavBar";
+import NavBar from "./components/NavBar";
+import HeaderImage from "./components/HeaderImage";
+import InfoWrapper from "./components/InfoWrapper";
 
 @Component({
   components: {
     NavBar,
+    HeaderImage,
+    InfoWrapper,
   },
 })
 export default class App extends Vue {}
 </script>
 
 <style lang="scss">
-@import url('https://fonts.googleapis.com/css2?family=Heebo&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Heebo&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Patua+One&display=swap");
 
 * {
   box-sizing: border-box;
 }
 
 body {
-  background: lightgray;
+  background: lightgrey;
+  font-family: "Heebo", sans-serif;
   margin: 0;
   padding: 0;
 }
@@ -38,8 +48,20 @@ body {
   background: whitesmoke;
 }
 
+.bold {
+  font-weight: bolder;
+}
+
 .container {
   margin: 0 auto;
-  width: 70%
+  width: 70%;
+}
+
+.primary {
+  color: rgb(25, 25, 25);
+}
+
+.secondary {
+  color: whitesmoke;
 }
 </style>
