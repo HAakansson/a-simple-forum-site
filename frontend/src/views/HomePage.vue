@@ -10,9 +10,6 @@ import { Vue, Component } from "vue-property-decorator";
 
 @Component()
 export default class Home extends Vue {
-  created() {
-    this.$store.dispatch("subjectStore/fetchAllSubjects");
-  }
 }
 </script>
 

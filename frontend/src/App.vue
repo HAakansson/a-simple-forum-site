@@ -24,7 +24,7 @@ import InfoWrapper from "./components/InfoWrapper";
 })
 export default class App extends Vue {
   created() {
-    this.$store.dispatch("subforumStore/fetchAllSubforums");
+    this.$store.dispatch("forumStore/fetchAllForums");
   }
 }
 </script>
@@ -62,7 +62,7 @@ body {
 }
 
 main {
-  padding: 1rem 1rem 1rem;
+  padding: 1rem;
 }
 
 p {

@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import { subforumStore } from "./subforumStore";
+import { forumStore } from "./forumStore";
 import { subjectStore } from "./subjectStore";
 
 Vue.use(Vuex);
@@ -10,7 +10,7 @@ export default new Vuex.Store({
   mutations: {},
   actions: {},
   modules: {
-    subforumStore,
+    forumStore,
     subjectStore,
   },
 });

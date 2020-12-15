@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import HomePage from "../views/HomePage";
-import Subforum from "../components/home-page/Subforum";
+import Forum from "../components/home-page/Forum";
 
 Vue.use(VueRouter);
 
@@ -10,7 +10,7 @@ const routes = [
     path: "/",
     name: "HomePage",
     component: HomePage,
-    children: [{ path: "", name: "Subforum", component: Subforum }],
+    children: [{ path: "", name: "Forum", component: Forum }],
   },
 ];
 

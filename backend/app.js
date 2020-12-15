@@ -3,6 +3,7 @@ const session = require("express-session");
 const store = require("better-express-store");
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
+const forumRoutes = require("./routes/forumRoutes");
 const subforumRoutes = require("./routes/subforumRoutes");
 const subjectsRoutes = require("./routes/subjectsRoutes");
 
@@ -21,6 +22,7 @@ app.use(
 app.use(express.json());
 app.use("/auth/v1", authRoutes);
 app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/forums", forumRoutes);
 app.use("/api/v1/subforums", subforumRoutes);
 app.use("/api/v1/subjects", subjectsRoutes);
 

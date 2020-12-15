@@ -13,7 +13,7 @@ import { Vue, Component } from "vue-property-decorator";
 export default class LowerNavBar extends Vue {
 
   get subforums () {
-    return this.$store.state.subforumStore.subforums;
+    return this.$store.state.forumStore.forums;
   }
 }
 </script>
