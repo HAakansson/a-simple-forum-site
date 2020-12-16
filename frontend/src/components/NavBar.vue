@@ -22,10 +22,9 @@ export default class NavBar extends Vue {}
 <style lang="scss" scoped>
 .navbar {
   border-bottom: 1px solid rgb(25, 25, 25);
-
   display: grid;
-  grid-template-rows: 1fr 0.7fr;
-  height: 8vh;
+  grid-template-rows: 1fr 1fr;
+  height: 11vh;
   width: 100vw;
 }
 </style>

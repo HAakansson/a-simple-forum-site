@@ -2,7 +2,7 @@
   <div class="forum-list-item">
     <div class="forum-banner bg-primary">
       <p class="name">{{ forum.name }}</p>
-      <span class="collapse-button material-icons">minimize</span>
+      <span class="collapse-button"><i class="material-icons">minimize</i></span>
     </div>
     <div class="subforum-wrapper">
       <subforum-row
@@ -38,6 +38,7 @@ export default class ForumListItem extends Vue {
 <style lang="scss" scoped>
 .forum-list-item {
   .forum-banner {
+    align-items: center;
     display: flex;
     color: lightgray;
     justify-content: space-between;
@@ -56,6 +57,10 @@ export default class ForumListItem extends Vue {
   .subforum-wrapper {
     border: 1px solid lightgray;
     margin: 0.3rem 0;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 }
 </style>
