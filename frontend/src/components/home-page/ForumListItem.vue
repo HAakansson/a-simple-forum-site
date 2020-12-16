@@ -9,6 +9,7 @@
         v-for="subforum in subforums"
         :key="subforum.id"
         :subforum="subforum"
+        :forumName="forum.name"
       />
     </div>
   </div>

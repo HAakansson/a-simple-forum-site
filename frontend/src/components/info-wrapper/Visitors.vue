@@ -14,8 +14,8 @@ import { Vue, Component } from "vue-property-decorator";
 @Component
 export default class Visitors extends Vue {
 
-  members = null;
-  posts = null;
+  members = 0;
+  posts = 0;
 
   async fetchTotalNumberOfMembers (){
     let members = await fetch("/api/v1/users/count/getCount");

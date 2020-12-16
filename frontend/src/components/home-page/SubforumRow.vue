@@ -1,7 +1,7 @@
 <template>
   <div class="subject-row">
     <div class="subject">
-      <p class="subject-name bold underline">{{ subforum.name }}</p>
+      <router-link class="subject-name bold underline" :to="`${subforumPath}`">{{ subforum.name }}</router-link>
       <div class="subforum-info">
         <span v-if="subjectCount !== null" class="subject-info"
           >{{ subjectCount }} ämnen -
@@ -26,24 +26,31 @@ export default class SubforumRow extends Vue {
   @Prop()
   subforum;
 
+  @Prop()
+  forumName;
+
   subjectCount = null;
   postCount = null;
 
-  async fetchAllSubjectsBySubforumId(subforumId) {
+  get subforumPath() {
+    return `/${this.forumName}/${this.subforum.name}`;
+  }
+
+  async fetchTotalNumberOfSubjectsBySubforumId(subforumId) {
     let subjectCount = await fetch(`/api/v1/subjects/${subforumId}/count`);
     subjectCount = await subjectCount.json();
     this.subjectCount = subjectCount;
   }
 
-  async fetchAllPostsBySubForumId(subforumId) {
+  async fetchTotalNumberOfPostsBySubForumId(subforumId) {
     let postCount = await fetch(`/api/v1/posts/${subforumId}/count`);
     postCount = await postCount.json();
     this.postCount = postCount;
   }
 
   async created() {
-    this.fetchAllSubjectsBySubforumId(this.subforum.id);
-    this.fetchAllPostsBySubForumId(this.subforum.id);
+    this.fetchTotalNumberOfSubjectsBySubforumId(this.subforum.id);
+    this.fetchTotalNumberOfPostsBySubForumId(this.subforum.id);
   }
 }
 </script>
@@ -62,6 +69,11 @@ export default class SubforumRow extends Vue {
   .subject {
     background: rgb(240, 240, 240);
     padding-left: 0.5rem;
+
+    .subject-name {
+      color: black;
+      cursor: pointer;
+    }
 
     .subforum.info {
       display: flex;
