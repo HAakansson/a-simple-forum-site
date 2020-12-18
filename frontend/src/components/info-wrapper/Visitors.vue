@@ -41,7 +41,7 @@ export default class Visitors extends Vue {
   align-items: center;
   display: grid;
   font-size: 0.8rem;
-  grid-template-columns: 25% 1fr 10% 10%;
+  grid-template-columns: 35% 1fr 10% 15%;
   padding: 0.3rem;
 
   p {

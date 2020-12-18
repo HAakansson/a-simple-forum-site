@@ -24,7 +24,7 @@ export default class HeaderRow extends Vue {
 .header-row {
   display: grid;
   grid-template-columns: 10% 1fr 10% 10% 20%;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   margin-top: 0.8rem;
 
   span {

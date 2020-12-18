@@ -11,5 +11,12 @@ export const postStore = {
     }
   },
 
-  actions: {},
+  actions: {
+    async fetchAllPostsBySubforumName({ commit }, subforumName) {
+      let posts = await fetch(`/api/v1/posts/subforum/${subforumName}`);
+      posts = await posts.json()
+      console.log(`Posts by subforumName: ${subforumName}: `, posts)
+      commit("setPosts", posts);
+    }
+  },
 };
