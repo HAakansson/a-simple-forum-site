@@ -1,6 +1,6 @@
 <template>
   <div class="subject-row">
-    <span class="subject">
+    <span class="subject" @click="goToSubject">
       <span class="name">{{ subject.name }}</span>
       <span class="creator">{{ subject.creator }}</span>
     </span>
@@ -17,6 +17,10 @@ import { Vue, Component, Prop } from "vue-property-decorator";
 export default class SubforumRow extends Vue {
   @Prop()
   subject;
+
+  goToSubject(){
+    this.$router.push(`${this.$route.path}/${this.subject.id}`);
+  }
 
 }
 </script>

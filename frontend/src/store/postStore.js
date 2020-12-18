@@ -5,6 +5,12 @@ export const postStore = {
     posts: null
   },
 
+  getters: {
+    postsBySubjectId: (state) => (subjectId) => {
+      return state.posts?.filter(post => post.subject_id === subjectId);
+    }
+  }, 
+
   mutations: {
     setPosts(state, payload) {
       state.posts = payload;

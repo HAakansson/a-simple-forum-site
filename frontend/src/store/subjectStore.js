@@ -5,6 +5,12 @@ export const subjectStore = {
     subjects: null,
   },
 
+  getters: {
+    getSubjectById: (state) => (subjectId) => {
+      return state.subjects ? state.subjects.find(subject => subject.id === subjectId) : null;
+    }
+  },
+
   mutations: {
     setSubjects(state, payload) {
       state.subjects = payload;
