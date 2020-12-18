@@ -4,6 +4,10 @@
       <p class="name">{{ subforumPath }}</p>
     </div>
     <moderator-banner />
+    <button class="new-subject">
+      <i class="material-icons">create</i> Nytt ämne
+    </button>
+    <header-row />
     <div class="subject-wrapper">
       <subject-row
         v-for="subject in subjects"
@@ -16,12 +20,14 @@
 
 <script>
 import { Vue, Component } from "vue-property-decorator";
-import ModeratorBanner from "./ModeratorBanner.vue";
+import ModeratorBanner from "./ModeratorBanner";
+import HeaderRow from "./HeaderRow";
 import SubjectRow from "./SubjectRow";
 
 @Component({
   components: {
     ModeratorBanner,
+    HeaderRow,
     SubjectRow,
   },
 })
@@ -64,6 +70,22 @@ export default class Subforum extends Vue {
       &:hover {
         color: white;
       }
+    }
+  }
+
+  .new-subject {
+    align-items: center;
+    background: lightgray;
+    border: 1px solid gray;
+    cursor: pointer;
+    display: inline-flex;
+    font-size: 0.7rem;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+
+    i {
+      font-size: 1rem;
+      margin-right: 0.5rem;
     }
   }
 }
