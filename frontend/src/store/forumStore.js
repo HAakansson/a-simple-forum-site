@@ -5,6 +5,12 @@ export const forumStore = {
     forums: null,
     subforums: null,
   },
+  
+  getters: {
+    subforumsByForumId: (state) => (forumId) => {
+      return state.subforums?.filter(subforum => subforum.forum_id === forumId)
+    }
+  },
 
   mutations: {
     setForums(state, payload) {
@@ -19,11 +25,13 @@ export const forumStore = {
     async fetchAllForums({ commit }) {
       let forums = await fetch("/api/v1/forums");
       forums = await forums.json();
+      console.log("Forums: ", forums);
       commit("setForums", forums);
     },
     async fetchAllSubforums({ commit }) {
       let subforums = await fetch("/api/v1/subforums");
       subforums = await subforums.json();
+      console.log("Subforums: ", subforums);
       commit("setSubforums", subforums);
     },
   },

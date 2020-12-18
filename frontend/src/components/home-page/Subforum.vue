@@ -32,7 +32,9 @@ import SubjectRow from "./SubjectRow";
   },
 })
 export default class Subforum extends Vue {
-  subjects = null;
+  get subjects() {
+    return this.$store.state.subjectStore.subjects;
+  }
 
   get subforumPath() {
     return this.$route.path.replace("/", "");
@@ -42,14 +44,15 @@ export default class Subforum extends Vue {
     return this.subforumPath.split("/").pop();
   }
 
-  async fetchAllSubjectsBySubforumName() {
-    let subjects = await fetch(`/api/v1/subjects/${this.subForumName}`);
-    subjects = await subjects.json();
-    this.subjects = subjects;
+  created() {
+    this.$store.dispatch(
+      "subjectStore/fetchAllSubjectsBySubforumName",
+      this.subForumName
+    );
   }
 
-  created() {
-    this.fetchAllSubjectsBySubforumName();
+  beforeDestroy(){
+    this.$store.commit("subjectStore/setSubjects", null);
   }
 }
 </script>
@@ -87,6 +90,10 @@ export default class Subforum extends Vue {
       font-size: 1rem;
       margin-right: 0.5rem;
     }
+  }
+
+  .subject-wrapper {
+    margin-top: 0.8rem;
   }
 }
 </style>

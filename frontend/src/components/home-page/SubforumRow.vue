@@ -43,7 +43,7 @@ export default class SubforumRow extends Vue {
   }
 
   async fetchTotalNumberOfPostsBySubForumId(subforumId) {
-    let postCount = await fetch(`/api/v1/posts/${subforumId}/count`);
+    let postCount = await fetch(`/api/v1/posts/subforum/${subforumId}/getTotalCount`);
     postCount = await postCount.json();
     this.postCount = postCount;
   }

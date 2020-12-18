@@ -2,7 +2,9 @@
   <div class="forum-list-item">
     <div class="forum-banner bg-primary">
       <p class="name">{{ forum.name }}</p>
-      <span class="collapse-button"><i class="material-icons">minimize</i></span>
+      <span class="collapse-button"
+        ><i class="material-icons">minimize</i></span
+      >
     </div>
     <div class="subforum-wrapper">
       <subforum-row
@@ -29,9 +31,7 @@ export default class ForumListItem extends Vue {
   forum;
 
   get subforums() {
-    return this.$store.state.forumStore.subforums?.filter(
-      (subforum) => subforum.forum_id === this.forum.id
-    );
+    return this.$store.getters["forumStore/subforumsByForumId"](this.forum.id);
   }
 }
 </script>

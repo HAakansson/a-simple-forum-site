@@ -12,9 +12,10 @@ export const subjectStore = {
   },
 
   actions: {
-    async fetchAllSubjects({ commit }) {
-      let subjects = await fetch("/api/v1/subjects");
+    async fetchAllSubjectsBySubforumName({ commit }, subForumName) {
+      let subjects = await fetch(`/api/v1/subjects/${subForumName}`);
       subjects = await subjects.json();
+      console.log(`Subjects by subforumName: ${subForumName}`, subjects);
       commit("setSubjects", subjects);
     },
   },

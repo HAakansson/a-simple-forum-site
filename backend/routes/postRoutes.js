@@ -2,7 +2,8 @@ const express = require("express");
 const router = express.Router();
 const postController = require("../controllers/postController");
 
-router.get("/:subforumId/count", postController.getCountOfPosts)
-router.get("/count/getCount", postController.getTotalNumberOfPosts);
+router.get("/getTotalCount", postController.getTotalNumberOfPosts);
+router.get("/subforum/:subforumId/getTotalCount", postController.getCountOfPostsBySubforumId)
+router.get("/subject/:subjectId", postController.getPostsBySubjectId);
 
 module.exports = router;

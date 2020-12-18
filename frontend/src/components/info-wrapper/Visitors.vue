@@ -24,7 +24,7 @@ export default class Visitors extends Vue {
   }
 
   async fetchTotalNumberOfPosts(){
-    let posts = await fetch ("api/v1/posts/count/getCount");
+    let posts = await fetch ("/api/v1/posts/getTotalCount");
     posts = await posts.json();
     this.posts = posts;
   }

@@ -21,7 +21,7 @@ const getCountOfSubjects = (req, res) => {
 
 const getAllSubjectsBysubforumId = (req, res) => {
   let query = db.prepare(/*sql*/ `
-    SELECT s.id, s.name, s.subforum_id, s.user_id, u.username FROM subjects AS s
+    SELECT s.id, s.name, s.subforum_id, s.user_id, u.username AS creator FROM subjects AS s
     JOIN users AS u ON s.user_id = u.id
     WHERE s.subforum_id = (SELECT id FROM subforums WHERE name = $subforumName)
   `);

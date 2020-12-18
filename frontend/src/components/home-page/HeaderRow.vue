@@ -12,14 +12,20 @@
 import { Vue, Component } from "vue-property-decorator";
 
 @Component
-export default class HeaderRow extends Vue {}
+export default class HeaderRow extends Vue {
+
+  async getTotalNumberOfPosts(){
+    
+  }
+}
 </script>
 
 <style lang="scss" scoped>
 .header-row {
   display: grid;
-  grid-template-columns: 10% 1fr 10% 10% 10%;
+  grid-template-columns: 10% 1fr 10% 10% 20%;
   font-size: 0.8rem;
+  margin-top: 0.8rem;
 
   span {
     cursor: pointer;
