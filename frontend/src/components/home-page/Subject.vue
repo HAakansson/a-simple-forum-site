@@ -5,13 +5,19 @@
     </div>
     <h3 class="subject-header">{{ subject.name }}</h3>
     <button class="reply"><i class="material-icons">reply</i> Svara</button>
+    <post v-for="post in posts" :key="post.id" :post="post" />
   </div>
 </template>
 
 <script>
 import { Vue, Component } from "vue-property-decorator";
+import Post from "./Post";
 
-@Component
+@Component({
+  components: {
+    Post,
+  },
+})
 export default class Subject extends Vue {
   get subforumPath() {
     return this.$route.path.replace("/", "");
@@ -22,9 +28,19 @@ export default class Subject extends Vue {
   }
 
   get subject() {
-    return this.$store.getters["subjectStore/getSubjectById"](this.subjectId);
+    return (
+      this.$store.getters["subjectStore/getSubjectById"](this.subjectId) ||
+      "Name of Subject"
+    );
   }
 
+  get posts(){
+    return this.$store.state.postStore.posts;
+  }
+
+  created() {
+    this.$store.dispatch("postStore/fetchAllPostsBySubjectId", this.subjectId);
+  }
 }
 </script>
 

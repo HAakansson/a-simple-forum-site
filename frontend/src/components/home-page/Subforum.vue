@@ -45,18 +45,11 @@ export default class Subforum extends Vue {
   }
 
   created() {
+    // this.$store.commit("subjectStore/setSubjects", null);
     this.$store.dispatch(
       "subjectStore/fetchAllSubjectsBySubforumName",
       this.subForumName
     );
-    this.$store.dispatch(
-      "postStore/fetchAllPostsBySubforumName",
-      this.subForumName
-    );
-  }
-
-  beforeDestroy() {
-    this.$store.commit("subjectStore/setSubjects", null);
   }
 }
 </script>

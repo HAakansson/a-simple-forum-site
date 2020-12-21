@@ -22,7 +22,7 @@ const getTotalNumberOfPosts = (req, res) => {
   res.json(result.count);
 };
 
-const getPostsBySubjectId = (req, res) => {
+const getAllPostsBySubjectId = (req, res) => {
   let query = db.prepare(
     /*sql*/ `SELECT * FROM posts WHERE subject_id = $subjectId`
   );
@@ -34,7 +34,8 @@ const getAllPostsBySubforumName = (req, res) => {
     SELECT * FROM posts AS p
     JOIN subjects AS s ON p.subject_id = s.id
     JOIN subforums AS sub ON s.subforum_id = sub.id
-    WHERE sub.name = $subforumName`);
+    WHERE sub.name = $subforumName
+    ORDER BY timestamp DESC`);
 
   res.json(query.all(req.params));
 };
@@ -42,6 +43,6 @@ const getAllPostsBySubforumName = (req, res) => {
 module.exports = {
   getCountOfPostsBySubforumId,
   getTotalNumberOfPosts,
-  getPostsBySubjectId,
+  getAllPostsBySubjectId,
   getAllPostsBySubforumName,
 };
