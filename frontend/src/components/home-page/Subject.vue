@@ -5,7 +5,7 @@
     </div>
     <h3 class="subject-header">{{ subject.name }}</h3>
     <button class="reply"><i class="material-icons">reply</i> Svara</button>
-    <post v-for="post in posts" :key="post.id" :post="post" />
+    <post v-for="(post, i) in posts" :key="post.id" :post="post" :nr="i+1" />
   </div>
 </template>
 
@@ -28,17 +28,18 @@ export default class Subject extends Vue {
   }
 
   get subject() {
-    return (
-      this.$store.getters["subjectStore/getSubjectById"](this.subjectId) ||
-      "Name of Subject"
-    );
+    return this.$store.state.subjectStore.subject || "Laddar";
   }
 
-  get posts(){
+  get posts() {
     return this.$store.state.postStore.posts;
   }
 
   created() {
+    this.$store.dispatch(
+      "subjectStore/fetchSubjectBySubjectId",
+      this.subjectId
+    );
     this.$store.dispatch("postStore/fetchAllPostsBySubjectId", this.subjectId);
   }
 }

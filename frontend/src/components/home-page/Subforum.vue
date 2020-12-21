@@ -45,7 +45,6 @@ export default class Subforum extends Vue {
   }
 
   created() {
-    // this.$store.commit("subjectStore/setSubjects", null);
     this.$store.dispatch(
       "subjectStore/fetchAllSubjectsBySubforumName",
       this.subForumName

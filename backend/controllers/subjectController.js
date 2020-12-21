@@ -10,6 +10,14 @@ const getAllSubjects = (req, res) => {
   res.json(query.all());
 };
 
+const getSubjectBySubjectId = (req, res) => {
+  let query = db.prepare(/*sql*/ `
+    SELECT * FROM subjects WHERE id = $subjectId
+  `);
+
+  res.json(query.get(req.params));
+};
+
 const getCountOfSubjects = (req, res) => {
   let query = db.prepare(/*sql*/ `
     SELECT COUNT() as count FROM subjects WHERE subforum_id = $subforumId
@@ -31,6 +39,7 @@ const getAllSubjectsBysubforumId = (req, res) => {
 
 module.exports = {
   getAllSubjects,
+  getSubjectBySubjectId,
   getCountOfSubjects,
   getAllSubjectsBysubforumId,
 };

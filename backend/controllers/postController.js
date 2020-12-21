@@ -24,7 +24,7 @@ const getTotalNumberOfPosts = (req, res) => {
 
 const getAllPostsBySubjectId = (req, res) => {
   let query = db.prepare(
-    /*sql*/ `SELECT * FROM posts WHERE subject_id = $subjectId`
+    /*sql*/ `SELECT * FROM posts WHERE subject_id = $subjectId ORDER BY timestamp ASC`
   );
   res.json(query.all(req.params));
 };
@@ -34,8 +34,7 @@ const getAllPostsBySubforumName = (req, res) => {
     SELECT * FROM posts AS p
     JOIN subjects AS s ON p.subject_id = s.id
     JOIN subforums AS sub ON s.subforum_id = sub.id
-    WHERE sub.name = $subforumName
-    ORDER BY timestamp DESC`);
+    WHERE sub.name = $subforumName`);
 
   res.json(query.all(req.params));
 };
