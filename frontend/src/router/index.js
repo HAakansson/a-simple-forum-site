@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import HomePage from "../views/HomePage";
+import LoginPage from "../views/LoginPage"
 import Forum from "../components/home-page/Forum";
 import Subforum from "../components/home-page/Subforum";
 import Subject from "../components/home-page/Subject";
@@ -18,6 +19,11 @@ const routes = [
       { path: "/:forumName/:subforumName/:subjectId", name: "Subject", component: Subject}
     ],
   },
+  {
+    path: "/login",
+    name: "LoginPage",
+    component: LoginPage,
+  }
 ];
 
 const router = new VueRouter({

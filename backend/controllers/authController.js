@@ -33,8 +33,6 @@ const logout = (req, res) => {
   res.json({ loggedOut: true });
 };
 
-
-
 module.exports = {
   login,
   whoami,

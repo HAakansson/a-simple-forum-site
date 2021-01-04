@@ -10,6 +10,7 @@ const subjectRoutes = require("./routes/subjectRoutes");
 const postRoutes = require("./routes/postRoutes");
 
 const app = express();
+app.use(express.json());
 
 app.use(
   session({
@@ -21,7 +22,6 @@ app.use(
   })
 );
 
-app.use(express.json());
 app.use("/auth/v1", authRoutes);
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/forums", forumRoutes);

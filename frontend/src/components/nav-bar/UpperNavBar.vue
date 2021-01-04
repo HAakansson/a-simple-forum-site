@@ -3,8 +3,9 @@
     <div class="upper-navbar container">
       <p class="new-subjects">Nya Ämnen</p>
       <p class="new-posts">Nya Inlägg</p>
-      <p class="register">Bli Medlem</p>
-      <p class="login-logout">Logga in</p>
+      <p v-if="!user" class="register">Bli Medlem</p>
+      <p v-else class="user">{{user? user.username : "" }}</p>
+      <p class="login-logout" @click="loginLogout">{{user ? "Logga ut" : "Logga in"}}</p>
     </div>
   </div>
 </template>
@@ -13,7 +14,19 @@
 import { Vue, Component } from "vue-property-decorator";
 
 @Component
-export default class UpperNavBar extends Vue {}
+export default class UpperNavBar extends Vue {
+  get user () {
+    return this.$store.state.userStore.loggedInUser;
+  }
+
+  async loginLogout(e){
+    if(e.target.innerText === "Logga in" && this.$route.path !== "/login") {
+      this.$router.push("/login");
+    } else if (e.target.innerText === "Logga ut") {
+      await this.$store.dispatch("userStore/logout");
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -37,7 +50,8 @@ export default class UpperNavBar extends Vue {}
       }
     }
 
-    .register {
+    .register,
+    .user {
       grid-column: 4/5;
     }
 
@@ -47,6 +61,7 @@ export default class UpperNavBar extends Vue {}
     }
 
     .register,
+    .user,
     .login-logout {
       justify-self: end;
     }

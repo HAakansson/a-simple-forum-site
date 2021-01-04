@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { Vue, Component } from "vue-property-decorator";
+import { Vue, Component, Watch } from "vue-property-decorator";
 import NavBar from "./components/NavBar";
 import HeaderImage from "./components/HeaderImage";
 import InfoWrapper from "./components/InfoWrapper";
@@ -23,7 +23,13 @@ import InfoWrapper from "./components/InfoWrapper";
   },
 })
 export default class App extends Vue {
+  @Watch("$route")
+  onRouteChange(to, from) {
+    this.$store.commit("setLastVisitedPath", from.path)
+  }
+
   created() {
+    this.$store.dispatch("userStore/fetchLoggedInUser");
     this.$store.dispatch("forumStore/fetchAllForums");
   }
 }
