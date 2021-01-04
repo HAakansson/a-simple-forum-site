@@ -33,6 +33,7 @@ export const userStore = {
         console.log("Could not log in!")
       }
       commit("setLoggedInUser", user);
+      return user;
     },
 
     async logout({ commit }) {

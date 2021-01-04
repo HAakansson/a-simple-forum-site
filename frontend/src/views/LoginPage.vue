@@ -7,7 +7,7 @@
           <input type="text" v-model="email" placeholder="Email" />
           <input type="password" v-model="password" placeholder="Lösenord" />
           <button class="bg-primary">Logga in</button>
-          <p v-if="showFeedback" class="feedback">Loggar in...</p>
+          <p v-if="feedback" class="feedback">{{ feedback }}</p>
         </div>
       </form>
     </div>
@@ -21,7 +21,7 @@ import { Vue, Component } from "vue-property-decorator";
 export default class LoginPage extends Vue {
   email = "";
   password = "";
-  showFeedback = false;
+  feedback = null;
 
   get lastVisitedPath() {
     return this.$store.state.lastVisitedPath;
@@ -32,18 +32,27 @@ export default class LoginPage extends Vue {
       email: this.email,
       password: this.password,
     };
-    
-    this.showFeedback = true;
-    await this.$store.dispatch("userStore/login", credentials);
-    this.showFeedback = false;
+
+    this.feedback = "Loggar in...";
+
+    let user = await this.$store.dispatch("userStore/login", credentials);
+
+    if (!user) {
+      this.feedback = "Felaktigt användarnamn eller Lösenord...";
+      setTimeout(() => {
+        this.feedback = null;
+      }, 3000);
+    } else {
+      this.feedback = null;
+      if (this.lastVisitedPath) {
+        this.$router.push(this.lastVisitedPath);
+      } else {
+        this.$router.push("/");
+      }
+    }
+
     this.email = "";
     this.password = "";
-
-    if (this.lastVisitedPath) {
-      this.$router.push(this.lastVisitedPath);
-    } else {
-      this.$router.push("/");
-    }
   }
 }
 </script>
@@ -75,7 +84,6 @@ export default class LoginPage extends Vue {
         }
 
         .feedback {
-          color: green;
           margin-top: 0.5rem;
           text-align: center;
         }
