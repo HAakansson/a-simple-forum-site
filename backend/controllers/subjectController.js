@@ -37,9 +37,35 @@ const getAllSubjectsBysubforumId = (req, res) => {
   res.json(query.all(req.params));
 };
 
+const postNewSubject = (req, res) => {
+  req.body.user_id = req.session.user.id;
+  let query = db.prepare(/*sql*/ `
+    SELECT id FROM subforums WHERE name = $subforumName
+  `);
+  let { id } = query.get(req.body);
+
+  if (id) {
+    req.body.subforum_id = id;
+  } else {
+    res.status(404).json({ error: "Could not find the subforum." });
+  }
+
+  query = db.prepare(/*sql*/ `
+      INSERT INTO subjects (name, subforum_id, user_id) VALUES ($name, $subforum_id, $user_id)
+  `);
+
+  let info = query.run(req.body);
+  if (info.changes) {
+    res.json({ message: "Post new subject successfull" });
+  } else {
+    res.status(404).json({ error: "Post new subject failed." });
+  }
+};
+
 module.exports = {
   getAllSubjects,
   getSubjectBySubjectId,
   getCountOfSubjects,
   getAllSubjectsBysubforumId,
+  postNewSubject,
 };

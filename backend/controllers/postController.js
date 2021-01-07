@@ -47,6 +47,7 @@ const postNewPost = (req, res) => {
     INSERT INTO posts (content, subject_id, user_id, timestamp) VALUES ($content, $subject_id, $user_id, $timestamp)
   `);
 
+  console.log(req.body);
   let info = query.run(req.body);
   if (info.changes) {
     res.json({ message: "Post successfull"})

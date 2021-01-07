@@ -34,7 +34,7 @@ export const postStore = {
         body: JSON.stringify(post),
       });
       info = await info.json();
-      console.log(info);
+      return info.lastInsertRowid;
     },
   },
 };

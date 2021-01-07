@@ -56,6 +56,22 @@ export default class WritePostPage extends Vue {
         subject_id: this.subjectId
       };
       this.$store.dispatch("postStore/postNewPost", post);
+      this.$router.push(this.lastVisitedPath)
+    } else {
+      let subject = {
+        name: this.header,
+        subforumName: this.lastVisitedPath.split("/").pop()
+      }
+
+      let newSubjectId = this.$store.dispatch("subjectStore/postNewSubject", subject);
+
+      let post = {
+        content: this.content,
+        subject_id: newSubjectId
+      }
+      
+      this.$store.dispatch("postStore/postNewPost", post);
+      this.$router.push(this.lastVisitedPath)
     }
   }
 }

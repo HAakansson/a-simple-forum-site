@@ -8,8 +8,10 @@ export const subjectStore = {
 
   getters: {
     getSubjectById: (state) => (subjectId) => {
-      return state.subjects ? state.subjects.find(subject => subject.id === subjectId) : null;
-    }
+      return state.subjects
+        ? state.subjects.find((subject) => subject.id === subjectId)
+        : null;
+    },
   },
 
   mutations: {
@@ -35,6 +37,18 @@ export const subjectStore = {
       subjects = await subjects.json();
       console.log(`Subjects by subforumName: ${subForumName}`, subjects);
       commit("setSubjects", subjects);
+    },
+
+    async postNewSubject(context, subject) {
+      let info = await fetch("/api/v1/subjects", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(subject),
+      });
+      info = await info.json();
+      console.log(info);
     },
   },
 };
