@@ -1,10 +1,11 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import HomePage from "../views/HomePage";
-import LoginPage from "../views/LoginPage"
+import LoginPage from "../views/LoginPage";
 import Forum from "../components/home-page/Forum";
 import Subforum from "../components/home-page/Subforum";
 import Subject from "../components/home-page/Subject";
+import WritePostPage from "../views/WritePostPage";
 
 Vue.use(VueRouter);
 
@@ -15,15 +16,28 @@ const routes = [
     component: HomePage,
     children: [
       { path: "", name: "Forum", component: Forum },
-      { path: "/:forumName/:subforumName", name: "Subforum", component: Subforum },
-      { path: "/:forumName/:subforumName/:subjectId", name: "Subject", component: Subject}
+      {
+        path: "/:forumName/:subforumName",
+        name: "Subforum",
+        component: Subforum,
+      },
+      {
+        path: "/:forumName/:subforumName/:subjectId",
+        name: "Subject",
+        component: Subject,
+      },
     ],
   },
   {
     path: "/login",
     name: "LoginPage",
     component: LoginPage,
-  }
+  },
+  {
+    path: "/write-post",
+    name: "WritePostPage",
+    component: WritePostPage,
+  },
 ];
 
 const router = new VueRouter({

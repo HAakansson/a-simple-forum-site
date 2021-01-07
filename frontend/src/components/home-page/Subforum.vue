@@ -4,7 +4,7 @@
       <p class="name">{{ subforumPath }}</p>
     </div>
     <moderator-banner />
-    <button class="new-subject">
+    <button class="new-subject" @click="goToWritePost">
       <i class="material-icons">create</i> Nytt ämne
     </button>
     <header-row />
@@ -42,6 +42,18 @@ export default class Subforum extends Vue {
 
   get subForumName() {
     return this.subforumPath.split("/").pop();
+  }
+
+  get loggedInUser(){
+    return this.$store.state.userStore.loggedInUser;
+  }
+
+  goToWritePost() {
+    if(this.loggedInUser){
+      this.$router.push("/write-post");
+    } else {
+      this.$router.push("/login");
+    }
   }
 
   created() {

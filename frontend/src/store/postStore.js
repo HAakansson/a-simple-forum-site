@@ -24,5 +24,17 @@ export const postStore = {
       console.log(`Posts by subforumId: ${subjectId}: `, posts);
       commit("setPosts", posts);
     },
+
+    async postNewPost(context, post) {
+      let info = await fetch("/api/v1/posts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(post),
+      });
+      info = await info.json();
+      console.log(info);
+    },
   },
 };

@@ -4,8 +4,10 @@
       <p class="name">{{ subforumPath }}</p>
     </div>
     <h3 class="subject-header">{{ subject.name }}</h3>
-    <button class="reply"><i class="material-icons">reply</i> Svara</button>
-    <post v-for="(post, i) in posts" :key="post.id" :post="post" :nr="i+1" />
+    <button class="reply" @click="goToWritePost">
+      <i class="material-icons">reply</i> Svara
+    </button>
+    <post v-for="(post, i) in posts" :key="post.id" :post="post" :nr="i + 1" />
   </div>
 </template>
 
@@ -33,6 +35,18 @@ export default class Subject extends Vue {
 
   get posts() {
     return this.$store.state.postStore.posts;
+  }
+
+  get loggedInUser (){
+    return this.$store.state.userStore.loggedInUser;
+  }
+
+  goToWritePost() {
+    if (this.loggedInUser) {
+      this.$router.push("/write-post");
+    } else {
+      this.$router.push("/login");
+    }
   }
 
   created() {

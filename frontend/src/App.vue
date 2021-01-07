@@ -25,6 +25,7 @@ import InfoWrapper from "./components/InfoWrapper";
 export default class App extends Vue {
   @Watch("$route")
   onRouteChange(to, from) {
+    console.log(from.path)
     this.$store.commit("setLastVisitedPath", from.path)
   }
 

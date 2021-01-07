@@ -39,9 +39,26 @@ const getAllPostsBySubforumName = (req, res) => {
   res.json(query.all(req.params));
 };
 
+const postNewPost = (req, res) => {
+  req.body.user_id = req.session.user.id;
+  req.body.timestamp = Date.now();
+
+  let query = db.prepare(/*sql*/ `
+    INSERT INTO posts (content, subject_id, user_id, timestamp) VALUES ($content, $subject_id, $user_id, $timestamp)
+  `);
+
+  let info = query.run(req.body);
+  if (info.changes) {
+    res.json({ message: "Post successfull"})
+  } else {
+    res.json({ error: "Post failed."})
+  }
+}
+
 module.exports = {
   getCountOfPostsBySubforumId,
   getTotalNumberOfPosts,
   getAllPostsBySubjectId,
   getAllPostsBySubforumName,
+  postNewPost,
 };
