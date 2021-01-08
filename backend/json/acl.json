@@ -1,0 +1,15 @@
+{
+  "/auth/v1/login": {"POST": "anon"},
+  "/auth*": {"GET": "*"},
+  "/api/v1/users/count/getCount": {"GET": "*"},
+  "/api/v1/users*": {
+    "ALL": "admin",
+    "POST": "anon",
+    "PUT": "author,moderator",
+    "GET": "moderator"
+  },
+  "/api/v1/subjects*": {"POST": "author,moderator,admin"},
+  "/api/v1/posts*": {"POST": "author,moderator,admin"},
+  "/api*": {"GET": "*"},
+  "/": {"GET": "*"}
+}

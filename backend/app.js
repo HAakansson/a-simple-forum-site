@@ -2,6 +2,8 @@ const express = require("express");
 const session = require("express-session");
 const store = require("better-express-store");
 
+const acl = require("./acl");
+
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
 const forumRoutes = require("./routes/forumRoutes");
@@ -21,6 +23,8 @@ app.use(
     store: store({ dbPath: "./forum.db" }),
   })
 );
+
+app.use(acl);
 
 app.use("/auth/v1", authRoutes);
 app.use("/api/v1/users", userRoutes);

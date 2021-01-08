@@ -6,6 +6,9 @@ import Forum from "../components/home-page/Forum";
 import Subforum from "../components/home-page/Subforum";
 import Subject from "../components/home-page/Subject";
 import WritePostPage from "../views/WritePostPage";
+import ForbiddenPage from "../views/ForbiddenPage";
+
+import store from "../store/index"
 
 Vue.use(VueRouter);
 
@@ -38,12 +41,30 @@ const routes = [
     name: "WritePostPage",
     component: WritePostPage,
   },
+  {
+    path: "/forbidden",
+    name: "ForbiddenPage",
+    component: ForbiddenPage,
+  },
 ];
 
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes,
+});
+
+router.beforeEach(async (to, from, next) => {
+  const isLoggedIn = store.state.userStore.loggedInUser;
+  const loggedInPages = ["WritePostPage"];
+  if (loggedInPages.includes(to.name)) {
+    if (isLoggedIn) {
+      next()
+    } else {
+      next("/")
+    }
+  }
+  next();
 });
 
 export default router;
