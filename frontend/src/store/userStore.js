@@ -5,6 +5,29 @@ export const userStore = {
     loggedInUser: null,
   },
 
+  getters: {
+    isModerator: (state) => () => {
+      if (state.loggedInUser) {
+        return (
+          state.loggedInUser.role === "moderator" ||
+          state.loggedInUser.role === 2
+        );
+      } else {
+        return false;
+      }
+    },
+
+    isAdmin: (state) => () => {
+      if (state.loggedInUser) {
+        return (
+          state.loggedInUser.role === "admin" || state.loggedInUser.role === 1
+        );
+      } else {
+        return false;
+      }
+    },
+  },
+
   mutations: {
     setLoggedInUser(state, payload) {
       state.loggedInUser = payload;
@@ -30,7 +53,7 @@ export const userStore = {
       user = await user.json();
       console.log("User: ", user);
       if (!user) {
-        console.log("Could not log in!")
+        console.log("Could not log in!");
       }
       commit("setLoggedInUser", user);
       return user;
@@ -41,6 +64,6 @@ export const userStore = {
       result = await result.json();
       console.log(result);
       commit("setLoggedInUser", null);
-    }
+    },
   },
 };

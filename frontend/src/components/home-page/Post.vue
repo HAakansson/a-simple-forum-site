@@ -8,6 +8,9 @@
       <div class="author-info todo-bg">User nr: {{ post.user_id }}</div>
       <div class="post-content">
         <p class="content">{{ post.content }}</p>
+        <span v-if="isAdmin || isModerator" class="remove-post"
+          ><i class="material-icons">clear</i></span
+        >
       </div>
     </div>
   </div>
@@ -20,9 +23,29 @@ import { Vue, Component, Prop } from "vue-property-decorator";
 export default class Post extends Vue {
   @Prop()
   post;
-
   @Prop()
   nr;
+  @Prop()
+  subforumPath;
+
+  get loggedInUser() {
+    return this.$store.state.userStore.loggedInUser;
+  }
+
+  get moderators() {
+    return this.$store.state.forumStore.moderators;
+  }
+
+  get isAdmin(){
+    return this.$store.getters["userStore/isAdmin"]();
+  }
+
+  get isModerator(){
+    if (this.$store.getters["userStore/isModerator"]()) {
+      return this.moderators?.find(m => m.email === this.loggedInUser.email);
+    }
+    return false;
+  }
 
   get time() {
     return new Date(this.post.timestamp).toLocaleString();
@@ -51,9 +74,17 @@ export default class Post extends Vue {
     }
 
     .post-content {
+      position: relative;
       font-size: 0.8rem;
       min-height: 150px;
       padding: 0.4rem;
+
+      .remove-post {
+        cursor: pointer;
+        right: 0;
+        bottom: 0;
+        position: absolute;
+      }
     }
   }
 }

@@ -3,7 +3,7 @@
     <div class="subforum-banner bg-primary">
       <p class="name todo">{{ subforumPath }}</p>
     </div>
-    <moderator-banner />
+    <moderator-banner :subForumName="subForumName" />
     <button class="new-subject" @click="goToWritePost">
       <i class="material-icons">create</i> Nytt ämne
     </button>
@@ -44,16 +44,20 @@ export default class Subforum extends Vue {
     return this.subforumPath.split("/").pop();
   }
 
-  get loggedInUser(){
+  get loggedInUser() {
     return this.$store.state.userStore.loggedInUser;
   }
 
   goToWritePost() {
-    if(this.loggedInUser){
+    if (this.loggedInUser) {
       this.$router.push("/write-post");
     } else {
       this.$router.push("/login");
     }
+  }
+
+  beforeCreate() {
+    this.$store.commit("forumStore/setModerators", null);
   }
 
   created() {

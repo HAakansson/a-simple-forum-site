@@ -7,7 +7,13 @@
     <button class="reply" @click="goToWritePost">
       <i class="material-icons">reply</i> Svara
     </button>
-    <post v-for="(post, i) in posts" :key="post.id" :post="post" :nr="i + 1" />
+    <post
+      v-for="(post, i) in posts"
+      :key="post.id"
+      :post="post"
+      :nr="i + 1"
+      :subforumPath="subforumPath"
+    />
   </div>
 </template>
 
@@ -23,6 +29,10 @@ import Post from "./Post";
 export default class Subject extends Vue {
   get subforumPath() {
     return this.$route.path.replace("/", "");
+  }
+
+  get subforumName() {
+    return this.subforumPath.split("/")[1];
   }
 
   get subjectId() {
@@ -55,6 +65,10 @@ export default class Subject extends Vue {
       this.subjectId
     );
     this.$store.dispatch("postStore/fetchAllPostsBySubjectId", this.subjectId);
+    this.$store.dispatch(
+      "forumStore/fetchModeratorsForSubforum",
+      this.subforumName
+    );
   }
 
   beforeDestroy() {
