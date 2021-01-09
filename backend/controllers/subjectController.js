@@ -56,7 +56,7 @@ const postNewSubject = (req, res) => {
 
   let info = query.run(req.body);
   if (info.changes) {
-    res.json({ message: "Post new subject successfull" });
+    res.json(info);
   } else {
     res.status(404).json({ error: "Post new subject failed." });
   }

@@ -48,7 +48,7 @@ export const subjectStore = {
         body: JSON.stringify(subject),
       });
       info = await info.json();
-      console.log(info);
+      return info.lastInsertRowid;
     },
   },
 };

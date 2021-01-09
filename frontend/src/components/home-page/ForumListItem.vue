@@ -1,9 +1,9 @@
 <template>
   <div class="forum-list-item">
     <div class="forum-banner bg-primary">
-      <p class="name">{{ forum.name }}</p>
+      <p class="name todo">{{ forum.name }}</p>
       <span class="collapse-button"
-        ><i class="material-icons">minimize</i></span
+        ><i class="material-icons todo">minimize</i></span
       >
     </div>
     <div class="subforum-wrapper">

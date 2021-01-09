@@ -80,6 +80,14 @@ p {
   color: rgb(25, 25, 25);
 }
 
+.todo {
+  color: red;
+}
+
+.todo-bg {
+  background: red;
+}
+
 .secondary {
   color: whitesmoke;
 }

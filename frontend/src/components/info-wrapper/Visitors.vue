@@ -1,10 +1,14 @@
 <template>
   <div class="visitors">
-    <p class="visitors-online">
+    <p class="visitors-online todo">
       <span class="bold">10000</span> besökare online (hårdkodad)
     </p>
-    <p class="posts"><span class="bold">{{ posts }}</span> inlägg</p>
-    <p class="members"><span class="bold">{{ members }}</span> medlemmar</p>
+    <p class="posts">
+      <span class="bold">{{ posts }}</span> inlägg
+    </p>
+    <p class="members">
+      <span class="bold">{{ members }}</span> medlemmar
+    </p>
   </div>
 </template>
 
@@ -13,23 +17,22 @@ import { Vue, Component } from "vue-property-decorator";
 
 @Component
 export default class Visitors extends Vue {
-
   members = 0;
   posts = 0;
 
-  async fetchTotalNumberOfMembers (){
+  async fetchTotalNumberOfMembers() {
     let members = await fetch("/api/v1/users/count/getCount");
     members = await members.json();
     this.members = members;
   }
 
-  async fetchTotalNumberOfPosts(){
-    let posts = await fetch ("/api/v1/posts/getTotalCount");
+  async fetchTotalNumberOfPosts() {
+    let posts = await fetch("/api/v1/posts/getTotalCount");
     posts = await posts.json();
     this.posts = posts;
   }
 
-  created(){
+  created() {
     this.fetchTotalNumberOfMembers();
     this.fetchTotalNumberOfPosts();
   }

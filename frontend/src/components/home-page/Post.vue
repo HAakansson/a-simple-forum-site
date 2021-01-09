@@ -5,7 +5,7 @@
       <div class="number bold">#{{ nr }}</div>
     </div>
     <div class="post-wrapper">
-      <div class="author-info">User nr: {{ post.user_id }}</div>
+      <div class="author-info todo-bg">User nr: {{ post.user_id }}</div>
       <div class="post-content">
         <p class="content">{{ post.content }}</p>
       </div>
@@ -46,7 +46,7 @@ export default class Post extends Vue {
     grid-template-columns: 20% 80%;
 
     .author-info {
-      background: lightgray;
+      // background: lightgray;
       padding: 0.4rem;
     }
 

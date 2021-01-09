@@ -34,6 +34,7 @@ export const postStore = {
         body: JSON.stringify(post),
       });
       info = await info.json();
+      await this.fetchAllPostsBySubjectId(post.subject_id);
       return info.lastInsertRowid;
     },
   },

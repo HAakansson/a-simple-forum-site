@@ -1,7 +1,7 @@
 <template>
   <div class="search bg-secondary">
     <form class="search-form" @submit.prevent>
-      <input type="text" placeholder="Sök..." />
+      <input class="todo-bg" type="text" placeholder="Sök..." />
       <button class="search-button bg-primary">
         <i class="material-icons">search</i>
       </button>

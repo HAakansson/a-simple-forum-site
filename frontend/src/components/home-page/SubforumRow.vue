@@ -1,7 +1,11 @@
 <template>
   <div class="subject-row">
     <div class="subject">
-      <router-link class="subject-name bold underline" :to="`${subforumPath}`">{{ subforum.name }}</router-link>
+      <router-link
+        class="subject-name bold underline"
+        :to="`${subforumPath}`"
+        >{{ subforum.name }}</router-link
+      >
       <div class="subforum-info">
         <span v-if="subjectCount !== null" class="subject-info"
           >{{ subjectCount }} ämnen -
@@ -12,8 +16,8 @@
       </div>
     </div>
 
-    <div class="newest-post">
-      <p>Hejsan</p>
+    <div class="newest-post todo">
+      <p>(Den senaste posten)</p>
     </div>
   </div>
 </template>
@@ -43,7 +47,9 @@ export default class SubforumRow extends Vue {
   }
 
   async fetchTotalNumberOfPostsBySubForumId(subforumId) {
-    let postCount = await fetch(`/api/v1/posts/subforum/${subforumId}/getTotalCount`);
+    let postCount = await fetch(
+      `/api/v1/posts/subforum/${subforumId}/getTotalCount`
+    );
     postCount = await postCount.json();
     this.postCount = postCount;
   }

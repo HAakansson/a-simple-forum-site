@@ -31,6 +31,7 @@ export default class LowerNavBar extends Vue {
 
     p {
       cursor: pointer;
+      color: red;
       margin: 0;
       margin-right: 2rem;
       padding: 0.3rem;

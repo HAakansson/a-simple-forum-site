@@ -1,10 +1,10 @@
 <template>
   <div class="upper-navbar-wrapper bg-primary">
     <div class="upper-navbar container">
-      <p class="new-subjects">Nya Ämnen</p>
-      <p class="new-posts">Nya Inlägg</p>
+      <p class="new-subjects todo">Nya Ämnen</p>
+      <p class="new-posts todo">Nya Inlägg</p>
       <p v-if="!user" class="register">Bli Medlem</p>
-      <p v-else class="user">{{user? user.username : "" }}</p>
+      <p v-else class="user todo">{{user? user.username : "" }}</p>
       <p class="login-logout" @click="loginLogout">{{user ? "Logga ut" : "Logga in"}}</p>
     </div>
   </div>
@@ -64,6 +64,9 @@ export default class UpperNavBar extends Vue {
     .user,
     .login-logout {
       justify-self: end;
+    }
+
+    .user {
     }
   }
 }

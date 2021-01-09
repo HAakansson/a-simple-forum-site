@@ -1,7 +1,7 @@
 <template>
   <div class="subforum">
     <div class="subforum-banner bg-primary">
-      <p class="name">{{ subforumPath }}</p>
+      <p class="name todo">{{ subforumPath }}</p>
     </div>
     <moderator-banner />
     <button class="new-subject" @click="goToWritePost">

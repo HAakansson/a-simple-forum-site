@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <h1 class="primary">Forumet</h1>
+    <h1 class="primary" @click="goToHomePage">Forumet</h1>
   </div>
 </template>
 
@@ -8,7 +8,11 @@
 import { Vue, Component } from "vue-property-decorator";
 
 @Component
-export default class Header extends Vue {}
+export default class Header extends Vue {
+  goToHomePage(){
+    this.$router.push("/")
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -24,6 +28,7 @@ export default class Header extends Vue {}
   justify-content: center;
 
   h1 {
+    cursor: pointer;
     font-size: 4rem;
   }
 }

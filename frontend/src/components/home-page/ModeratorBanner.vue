@@ -1,6 +1,6 @@
 <template>
   <div class="moderator-banner">
-    <span class="moderators bold">Moderatorer (0):</span>
+    <span class="moderators bold todo">Moderatorer (0):</span>
   </div>
 </template>
 

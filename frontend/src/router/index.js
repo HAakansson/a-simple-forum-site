@@ -61,7 +61,7 @@ router.beforeEach(async (to, from, next) => {
     if (isLoggedIn) {
       next()
     } else {
-      next("/")
+      next("/forbidden")
     }
   }
   next();

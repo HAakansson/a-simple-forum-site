@@ -1,7 +1,7 @@
 <template>
   <div class="subject">
     <div class="subject-banner bg-primary">
-      <p class="name">{{ subforumPath }}</p>
+      <p class="name todo">{{ subforumPath }}</p>
     </div>
     <h3 class="subject-header">{{ subject.name }}</h3>
     <button class="reply" @click="goToWritePost">
@@ -37,7 +37,7 @@ export default class Subject extends Vue {
     return this.$store.state.postStore.posts;
   }
 
-  get loggedInUser (){
+  get loggedInUser() {
     return this.$store.state.userStore.loggedInUser;
   }
 
@@ -55,6 +55,10 @@ export default class Subject extends Vue {
       this.subjectId
     );
     this.$store.dispatch("postStore/fetchAllPostsBySubjectId", this.subjectId);
+  }
+
+  beforeDestroy() {
+    this.$store.commit("postStore/setPosts", null);
   }
 }
 </script>

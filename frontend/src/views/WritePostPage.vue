@@ -49,7 +49,7 @@ export default class WritePostPage extends Vue {
       : null;
   }
 
-  postNewPost() {
+  async postNewPost() {
     if (this.ifNewPostNotNewSubject) {
       let post = {
         content: this.content,
@@ -63,7 +63,7 @@ export default class WritePostPage extends Vue {
         subforumName: this.lastVisitedPath.split("/").pop()
       }
 
-      let newSubjectId = this.$store.dispatch("subjectStore/postNewSubject", subject);
+      let newSubjectId = await this.$store.dispatch("subjectStore/postNewSubject", subject);
 
       let post = {
         content: this.content,
