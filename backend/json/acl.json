@@ -1,15 +1,21 @@
 {
-  "/auth/v1/login": {"POST": "anon"},
-  "/auth*": {"GET": "*"},
-  "/api/v1/users/count/getCount": {"GET": "*"},
+  "/auth/v1/login": { "POST": "anon" },
+  "/auth*": { "GET": "*" },
+  "/api/v1/users/count/getCount": { "GET": "*" },
   "/api/v1/users*": {
     "ALL": "admin",
     "POST": "anon",
     "PUT": "author,moderator",
     "GET": "moderator"
   },
-  "/api/v1/subjects*": {"POST": "author,moderator,admin"},
-  "/api/v1/posts*": {"POST": "author,moderator,admin"},
-  "/api*": {"GET": "*"},
-  "/": {"GET": "*"}
+  "/api/v1/forums*": { "GET": "*" },
+  "/api/v1/subforums*": { "GET": "*" },
+  "/api/v1/subjects*": { "POST": "author,moderator,admin", "GET": "*" },
+  "/api/v1/posts*": {
+    "ALL": "admin",
+    "POST": "author,moderator",
+    "GET": "*",
+    "DELETE": "moderator"
+  },
+  "/": { "GET": "*" }
 }

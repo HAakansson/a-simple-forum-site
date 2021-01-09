@@ -7,6 +7,7 @@ import Subforum from "../components/home-page/Subforum";
 import Subject from "../components/home-page/Subject";
 import WritePostPage from "../views/WritePostPage";
 import ForbiddenPage from "../views/ForbiddenPage";
+import NotExistsPage from "../views/NotExistsPage";
 
 import store from "../store/index"
 
@@ -45,6 +46,11 @@ const routes = [
     path: "/forbidden",
     name: "ForbiddenPage",
     component: ForbiddenPage,
+  },
+  {
+    path: "*",
+    name: "NotExistsPage",
+    component: NotExistsPage,
   },
 ];
 

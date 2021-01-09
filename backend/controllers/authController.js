@@ -29,8 +29,12 @@ const whoami = (req, res) => {
 };
 
 const logout = (req, res) => {
-  delete req.session.user;
-  res.json({ loggedOut: true });
+  if (req.session.user) {
+    delete req.session.user;
+    res.json({ message: "Logout sucessfull" });
+  } else {
+    res.json({ message: "No one to logout" });
+  }
 };
 
 module.exports = {

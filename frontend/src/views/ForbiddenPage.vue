@@ -12,7 +12,7 @@ import { Vue, Component } from "vue-property-decorator";
 
 @Component
 export default class ForbiddenPage extends Vue {
-  seconds = 5;
+  seconds = 4;
 
   mounted(){
     let timer = setInterval(() => {

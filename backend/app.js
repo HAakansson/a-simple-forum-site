@@ -1,6 +1,7 @@
 const express = require("express");
 const session = require("express-session");
 const store = require("better-express-store");
+const path = require("path");
 
 const acl = require("./acl");
 
@@ -32,6 +33,10 @@ app.use("/api/v1/forums", forumRoutes);
 app.use("/api/v1/subforums", subforumRoutes);
 app.use("/api/v1/subjects", subjectRoutes);
 app.use("/api/v1/posts", postRoutes);
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
+});
 
 app.listen(3000, () => {
   console.log("Listening on port 3000");
