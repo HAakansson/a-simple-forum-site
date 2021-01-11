@@ -8,7 +8,7 @@
       <div class="author-info todo-bg">User nr: {{ post.user_id }}</div>
       <div class="post-content">
         <p class="content">{{ post.content }}</p>
-        <span v-if="isAdmin || isModerator" class="remove-post"
+        <span v-if="isAdmin || isModerator" class="remove-post todo"
           ><i class="material-icons">clear</i></span
         >
       </div>

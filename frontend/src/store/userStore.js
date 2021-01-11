@@ -3,6 +3,7 @@ export const userStore = {
 
   state: {
     loggedInUser: null,
+    allUsers: null,
   },
 
   getters: {
@@ -31,6 +32,10 @@ export const userStore = {
   mutations: {
     setLoggedInUser(state, payload) {
       state.loggedInUser = payload;
+    },
+
+    setAllUsers(state, payload) {
+      state.allUsers = payload;
     },
   },
 
@@ -64,6 +69,13 @@ export const userStore = {
       result = await result.json();
       console.log(result);
       commit("setLoggedInUser", null);
+    },
+
+    async fetchAllUsers({ commit }) {
+      let users = await fetch("/api/v1/users");
+      users = await users.json();
+      console.log("Users: ", users);
+      commit("setAllUsers", users);
     },
   },
 };

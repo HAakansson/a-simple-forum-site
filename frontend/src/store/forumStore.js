@@ -46,8 +46,44 @@ export const forumStore = {
         `/api/v1/subforums/moderators/${subforumName}`
       );
       moderators = await moderators.json();
-      console.log("Moderators: ", moderators)
+      console.log("Moderators: ", moderators);
       commit("setModerators", moderators);
+    },
+
+    async addModeratorToSubforum(context, newMod) {
+      let result = await fetch("/api/v1/subforums/new-moderator", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newMod),
+      });
+      result = await result.json();
+      return result;
+    },
+
+    async removeModeratorFromSubforum(context, remMod) {
+      let result = await fetch("/api/v1/subforums/remove-moderator", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(remMod),
+      });
+      result = await result.json();
+      return result;
+    },
+
+    async updateRoleOnUser(context, payload) {
+      let result = await fetch("/api/v1/subforums/update-moderator", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+      result = await result.json();
+      return result;
     },
   },
 };

@@ -3,7 +3,7 @@
     <div class="subforum-banner bg-primary">
       <p class="name todo">{{ subforumPath }}</p>
     </div>
-    <moderator-banner :subForumName="subForumName" />
+    <moderator-banner :subforumName="subforumName" />
     <button class="new-subject" @click="goToWritePost">
       <i class="material-icons">create</i> Nytt ämne
     </button>
@@ -37,10 +37,10 @@ export default class Subforum extends Vue {
   }
 
   get subforumPath() {
-    return this.$route.path.replace("/", "");
+    return this.$route.path.replace("/", "").replace(/%20/g, " ");
   }
 
-  get subForumName() {
+  get subforumName() {
     return this.subforumPath.split("/").pop();
   }
 
@@ -63,7 +63,7 @@ export default class Subforum extends Vue {
   created() {
     this.$store.dispatch(
       "subjectStore/fetchAllSubjectsBySubforumName",
-      this.subForumName
+      this.subforumName
     );
   }
 }

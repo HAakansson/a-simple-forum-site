@@ -9,6 +9,9 @@
     "GET": "moderator"
   },
   "/api/v1/forums*": { "GET": "*" },
+  "/api/v1/subforums/new-moderator": { "POST": "admin"},
+  "/api/v1/subforums/remove-moderator": {"POST": "admin"},
+  "/api/v1/subforums/update-moderator": {"PUT": "admin"},
   "/api/v1/subforums*": { "GET": "*" },
   "/api/v1/subjects*": { "POST": "author,moderator,admin", "GET": "*" },
   "/api/v1/posts*": {
