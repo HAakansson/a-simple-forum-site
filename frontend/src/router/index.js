@@ -9,7 +9,7 @@ import WritePostPage from "../views/WritePostPage";
 import ForbiddenPage from "../views/ForbiddenPage";
 import NotExistsPage from "../views/NotExistsPage";
 
-import store from "../store/index"
+// import store from "../store/index"
 
 Vue.use(VueRouter);
 
@@ -60,17 +60,17 @@ const router = new VueRouter({
   routes,
 });
 
-router.beforeEach(async (to, from, next) => {
-  const isLoggedIn = store.state.userStore.loggedInUser;
-  const loggedInPages = ["WritePostPage"];
-  if (loggedInPages.includes(to.name)) {
-    if (isLoggedIn) {
-      next()
-    } else {
-      next("/forbidden")
-    }
-  }
-  next();
-});
+// router.beforeEach(async (to, from, next) => {
+//   const isLoggedIn = store.state.userStore.loggedInUser;
+//   const loggedInPages = ["WritePostPage"];
+//   if (loggedInPages.includes(to.name)) {
+//     if (isLoggedIn) {
+//       next()
+//     } else {
+//       next("/forbidden")
+//     }
+//   }
+//   next();
+// });
 
 export default router;

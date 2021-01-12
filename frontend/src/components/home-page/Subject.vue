@@ -13,6 +13,7 @@
       :post="post"
       :nr="i + 1"
       :subforumPath="subforumPath"
+      @remove-post="removePost"
     />
   </div>
 </template>
@@ -28,7 +29,7 @@ import Post from "./Post";
 })
 export default class Subject extends Vue {
   get subforumPath() {
-    return this.$route.path.replace("/", "");
+    return this.$route.path.replace("/", "").replace(/%20/g, " ");
   }
 
   get subforumName() {
@@ -59,20 +60,44 @@ export default class Subject extends Vue {
     }
   }
 
-  created() {
-    this.$store.dispatch(
+  async removePost(postId) {
+    let updatedPosts = this.posts.filter((p) => postId !== p.id);
+    this.$store.commit("postStore/setPosts", updatedPosts);
+    let response = await this.$store.dispatch("postStore/deletePost", postId);
+    if (response.message) {
+      this.$store.dispatch(
+        "postStore/fetchAllPostsBySubjectId",
+        this.subjectId
+      );
+    }
+    console.log("Remove post by id: ", postId);
+  }
+
+  putImportantPostsAtTop() {
+    let importantPosts = this.posts.filter((p) => p.important === 1);
+    let sortedPosts = this.posts.filter((p) => p.important !== 1);
+    sortedPosts.unshift(...importantPosts);
+    this.$store.commit("postStore/setPosts", sortedPosts);
+  }
+
+  async created() {
+    await this.$store.dispatch(
       "subjectStore/fetchSubjectBySubjectId",
       this.subjectId
     );
-    this.$store.dispatch("postStore/fetchAllPostsBySubjectId", this.subjectId);
-    this.$store.dispatch(
+    await this.$store.dispatch(
+      "postStore/fetchAllPostsBySubjectId",
+      this.subjectId
+    );
+    await this.$store.dispatch(
       "forumStore/fetchModeratorsForSubforum",
       this.subforumName
     );
+    this.putImportantPostsAtTop()
   }
 
-  beforeDestroy() {
-    this.$store.commit("postStore/setPosts", null);
+  async beforeDestroy() {
+    await this.$store.commit("postStore/setPosts", null);
   }
 }
 </script>

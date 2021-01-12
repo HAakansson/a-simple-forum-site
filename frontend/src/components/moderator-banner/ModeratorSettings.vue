@@ -140,6 +140,8 @@ export default class ModeratorSettings extends Vue {
   border-radius: 5px;
   display: none;
   height: 320px;
+  right: 40%;
+  top: 30%;
   width: 300px;
   position: absolute;
 

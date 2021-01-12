@@ -3,15 +3,19 @@
     <span class="moderators bold"
       >Moderatorer: {{ moderators ? moderators.length : 0 }}</span
     >
-    <div v-if="isAdmin" class="moderators-view">
+    <div v-if="isAdmin || isModerator" class="moderators-view">
       <span class="text">Moderatorer: </span>
       <select>
-        <option v-if="!moderators.length> 0" value>Inga...</option>
+        <option v-if="!moderators.length > 0" value>Inga...</option>
         <option v-for="m in moderators" :key="m.email" :value="m.email">{{
           m.email
         }}</option>
       </select>
-      <button class="change bg-primary" @click="openChangeModerators">
+      <button
+        v-if="isAdmin"
+        class="change bg-primary"
+        @click="openChangeModerators"
+      >
         Ändra
       </button>
     </div>
@@ -37,6 +41,10 @@ export default class ModeratorBanner extends Vue {
 
   get isAdmin() {
     return this.$store.getters["userStore/isAdmin"]();
+  }
+
+  get isModerator() {
+    return this.$store.getters["userStore/isModerator"]();
   }
 
   get moderators() {

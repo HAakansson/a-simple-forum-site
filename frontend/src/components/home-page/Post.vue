@@ -2,14 +2,18 @@
   <div class="post">
     <div class="post-banner">
       <div class="timestamp">{{ time }}</div>
+      <div v-if="post.important" class="important">!VIKTIGT INLÄGG!</div>
       <div class="number bold">#{{ nr }}</div>
     </div>
     <div class="post-wrapper">
       <div class="author-info todo-bg">User nr: {{ post.user_id }}</div>
-      <div class="post-content">
+      <div class="post-content" :class="{ important_post: post.important }">
         <p class="content">{{ post.content }}</p>
-        <span v-if="isAdmin || isModerator" class="remove-post todo"
-          ><i class="material-icons">clear</i></span
+        <span
+          v-if="isAdmin || isModerator"
+          class="remove-post"
+          @click="removeTodo"
+          ><i class="material-icons">delete</i></span
         >
       </div>
     </div>
@@ -36,19 +40,23 @@ export default class Post extends Vue {
     return this.$store.state.forumStore.moderators;
   }
 
-  get isAdmin(){
+  get isAdmin() {
     return this.$store.getters["userStore/isAdmin"]();
   }
 
-  get isModerator(){
+  get isModerator() {
     if (this.$store.getters["userStore/isModerator"]()) {
-      return this.moderators?.find(m => m.email === this.loggedInUser.email);
+      return this.moderators?.find((m) => m.email === this.loggedInUser.email);
     }
     return false;
   }
 
   get time() {
     return new Date(this.post.timestamp).toLocaleString();
+  }
+
+  removeTodo() {
+    this.$emit("remove-post", this.post.id);
   }
 }
 </script>
@@ -62,6 +70,11 @@ export default class Post extends Vue {
     justify-content: space-between;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
+
+    .important {
+      color: rgb(160, 160, 70);
+      font-weight: bold;
+    }
   }
 
   .post-wrapper {
@@ -81,10 +94,15 @@ export default class Post extends Vue {
 
       .remove-post {
         cursor: pointer;
-        right: 0;
         bottom: 0;
         position: absolute;
+        right: 0;
+        user-select: none;
       }
+    }
+
+    .important_post {
+      background: rgb(160, 160, 70) !important;
     }
   }
 }

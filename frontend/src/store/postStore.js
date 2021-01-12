@@ -37,5 +37,15 @@ export const postStore = {
       await this.fetchAllPostsBySubjectId(post.subject_id);
       return info.lastInsertRowid;
     },
+
+    async deletePost(context, postId) {
+      let result = await fetch(`/api/v1/posts/${postId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      return await result.json();
+    },
   },
 };

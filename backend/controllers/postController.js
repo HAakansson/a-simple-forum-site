@@ -43,17 +43,31 @@ const postNewPost = (req, res) => {
   req.body.user_id = req.session.user.id;
   req.body.timestamp = Date.now();
 
+  console.log("BODY: ", req.body)
+
   let query = db.prepare(/*sql*/ `
-    INSERT INTO posts (content, subject_id, user_id, timestamp) VALUES ($content, $subject_id, $user_id, $timestamp)
+    INSERT INTO posts (content, subject_id, user_id, timestamp, important) VALUES ($content, $subject_id, $user_id, $timestamp, $important)
   `);
 
   let info = query.run(req.body);
   if (info.changes) {
-    res.json({ message: "Post successfull"})
+    res.json({ message: "Post successfull" });
   } else {
-    res.json({ error: "Post failed."})
+    res.json({ error: "Post failed." });
   }
-}
+};
+
+const deletePost = (req, res) => {
+  let query = db.prepare(/*sql*/ `
+    DELETE FROM posts WHERE id = $id
+  `);
+  let info = query.run(req.params);
+  if (info.changes) {
+    res.json({ message: "Delete successfull" });
+  } else {
+    res.status(404).json({ error: "Delete unsuccessfull" });
+  }
+};
 
 module.exports = {
   getCountOfPostsBySubforumId,
@@ -61,4 +75,5 @@ module.exports = {
   getAllPostsBySubjectId,
   getAllPostsBySubforumName,
   postNewPost,
+  deletePost,
 };
