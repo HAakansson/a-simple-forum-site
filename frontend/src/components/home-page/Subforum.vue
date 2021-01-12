@@ -58,6 +58,7 @@ export default class Subforum extends Vue {
 
   beforeCreate() {
     this.$store.commit("forumStore/setModerators", null);
+    this.$store.commit("subjectStore/setSubjects", null);
   }
 
   created() {

@@ -7,4 +7,5 @@ router.get("/:subjectId", subjectController.getSubjectBySubjectId)
 router.get("/:subforumId/count", subjectController.getCountOfSubjects);
 router.get("/subforum/:subforumName", subjectController.getAllSubjectsBysubforumId);
 router.post("", subjectController.postNewSubject);
+router.post("/lock/:subjectId", subjectController.lockSubject);
 module.exports = router;

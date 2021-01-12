@@ -50,5 +50,17 @@ export const subjectStore = {
       info = await info.json();
       return info.lastInsertRowid;
     },
+
+    async updateLockSubject(context, payload) {
+      let result = await fetch(`/api/v1/subjects/lock/${payload.subjectId}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+      result = await result.json();
+      return result;
+    },
   },
 };

@@ -4,9 +4,19 @@
       <p class="name todo">{{ subforumPath }}</p>
     </div>
     <h3 class="subject-header">{{ subject.name }}</h3>
-    <button class="reply" @click="goToWritePost">
-      <i class="material-icons">reply</i> Svara
-    </button>
+    <div class="subject-options">
+      <button class="reply" @click="goToWritePost">
+        <i class="material-icons">reply</i> Svara
+      </button>
+      <p v-if="locked" class="feedback"><i>Tråden är stängd</i></p>
+      <button
+        v-if="isAdmin || isModerator"
+        class="lock-subject"
+        @click="lockOrOpenSubject"
+      >
+        {{ !locked ? "Lås Tråd" : "Öppna Tråd" }}
+      </button>
+    </div>
     <post
       v-for="(post, i) in posts"
       :key="post.id"
@@ -19,7 +29,7 @@
 </template>
 
 <script>
-import { Vue, Component } from "vue-property-decorator";
+import { Vue, Component, Watch } from "vue-property-decorator";
 import Post from "./Post";
 
 @Component({
@@ -31,25 +41,46 @@ export default class Subject extends Vue {
   get subforumPath() {
     return this.$route.path.replace("/", "").replace(/%20/g, " ");
   }
-
   get subforumName() {
     return this.subforumPath.split("/")[1];
   }
-
   get subjectId() {
     return parseInt(this.$route.path.split("/").pop());
   }
-
   get subject() {
     return this.$store.state.subjectStore.subject || "Laddar";
   }
-
+  get locked() {
+    return this.subject.locked == 1 ? true : false;
+  }
+  set locked(newVal) {
+    this.subject.locked = newVal;
+  }
   get posts() {
     return this.$store.state.postStore.posts;
   }
-
+  get moderators() {
+    return this.$store.state.forumStore.moderators;
+  }
   get loggedInUser() {
     return this.$store.state.userStore.loggedInUser;
+  }
+  get isAdmin() {
+    return this.$store.getters["userStore/isAdmin"]();
+  }
+  get isModerator() {
+    if (this.$store.getters["userStore/isModerator"]()) {
+      return this.moderators?.find((m) => m.email === this.loggedInUser.email);
+    }
+    return false;
+  }
+
+  @Watch("locked", {immediate: true})
+  onLockedChange(newVal) {
+    setTimeout(() => {
+      let btn = document.querySelector(".reply");
+      btn.disabled = newVal;
+    }, 0);
   }
 
   goToWritePost() {
@@ -58,6 +89,18 @@ export default class Subject extends Vue {
     } else {
       this.$router.push("/login");
     }
+  }
+
+  lockOrOpenSubject() {
+    console.log(this.locked);
+    this.locked = this.locked ? false : true;
+    let lockedSubject = this.locked ? 1 : 0;
+    let btn = document.querySelector(".reply");
+    btn.disabled = this.locked ? true : false;
+    this.$store.dispatch("subjectStore/updateLockSubject", {
+      locked: lockedSubject,
+      subjectId: this.subjectId,
+    });
   }
 
   async removePost(postId) {
@@ -93,7 +136,7 @@ export default class Subject extends Vue {
       "forumStore/fetchModeratorsForSubforum",
       this.subforumName
     );
-    this.putImportantPostsAtTop()
+    this.putImportantPostsAtTop();
   }
 
   async beforeDestroy() {
@@ -117,16 +160,30 @@ export default class Subject extends Vue {
     margin: 0.6rem 0;
   }
 
-  .reply {
+  .subject-options {
     align-items: center;
-    background: lightgray;
-    border: 1px solid gray;
-    cursor: pointer;
-    display: inline-flex;
-    font-size: 0.6rem;
+    display: flex;
+    margin-bottom: 0.5rem;
+    justify-content: space-between;
 
-    i {
-      font-size: 1rem;
+    .feedback {
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+
+    .reply,
+    .lock-subject {
+      align-items: center;
+      background: lightgray;
+      border: 1px solid gray;
+      cursor: pointer;
+      display: inline-flex;
+      font-size: 0.6rem;
+      height: 20px;
+
+      i {
+        font-size: 1rem;
+      }
     }
   }
 }

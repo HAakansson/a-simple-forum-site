@@ -62,10 +62,24 @@ const postNewSubject = (req, res) => {
   }
 };
 
+const lockSubject = (req, res) => {
+  let query = db.prepare(/*sql*/`
+    UPDATE subjects SET locked = $locked WHERE id = $subjectId
+  `);
+
+  let info = query.run(req.body);
+  if (info.changes) {
+    res.json({message: "Update succesfull"})
+  } else {
+    res.status(404).json({error: "Update failed"})
+  }
+}
+
 module.exports = {
   getAllSubjects,
   getSubjectBySubjectId,
   getCountOfSubjects,
   getAllSubjectsBysubforumId,
   postNewSubject,
+  lockSubject,
 };

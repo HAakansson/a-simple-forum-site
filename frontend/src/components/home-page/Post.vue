@@ -89,7 +89,7 @@ export default class Post extends Vue {
     .post-content {
       position: relative;
       font-size: 0.8rem;
-      min-height: 150px;
+      min-height: 50px;
       padding: 0.4rem;
 
       .remove-post {
