@@ -51,9 +51,19 @@ export default class WritePostPage extends Vue {
   }
 
   get lastVisitedPath() {
-    return this.$store.state.lastVisitedPath
-      .replace("/", "")
-      .replace(/%20/g, " ");
+    if (localStorage.getItem("lastVisitedPath")) {
+      return JSON.parse(localStorage.getItem("lastVisitedPath"));
+    } else {
+      let lastVisitedPathCorrect = this.$store.state.lastVisitedPath
+        .replace("/", "")
+        .replace(/%20/g, " ");
+
+      localStorage.setItem(
+        "lastVisitedPath",
+        JSON.stringify(lastVisitedPathCorrect)
+      );
+      return lastVisitedPathCorrect;
+    }
   }
 
   get ifNewPostNotNewSubject() {
@@ -98,6 +108,10 @@ export default class WritePostPage extends Vue {
       this.$store.dispatch("postStore/postNewPost", post);
       this.$router.push(this.lastVisitedPath);
     }
+  }
+
+  beforeDestroy() {
+    localStorage.removeItem("lastVisitedPath");
   }
 }
 </script>

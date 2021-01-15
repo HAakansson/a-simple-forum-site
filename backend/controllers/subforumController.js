@@ -1,6 +1,8 @@
 const sqlite3 = require("better-sqlite3");
+const path = require("path");
 
-const db = sqlite3("./forum.db"); // I dont understand why only one "./"" works and not "../". Should be "../"
+const pathToDb = path.join(__dirname, "../forum.db");
+const db = sqlite3(pathToDb);
 
 const getAllSubforums = (req, res) => {
   let query = db.prepare(/*sql*/ `

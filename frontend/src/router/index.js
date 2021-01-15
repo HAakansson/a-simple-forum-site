@@ -9,7 +9,7 @@ import WritePostPage from "../views/WritePostPage";
 import ForbiddenPage from "../views/ForbiddenPage";
 import NotExistsPage from "../views/NotExistsPage";
 
-import store from "../store/index"
+import store from "../store/index";
 
 Vue.use(VueRouter);
 
@@ -60,14 +60,23 @@ const router = new VueRouter({
   routes,
 });
 
+async function whoAmI() {
+  console.log("Inside whoami");
+  return await store.dispatch("userStore/fetchLoggedInUser");
+}
+
 router.beforeEach(async (to, from, next) => {
-  const isLoggedIn = store.state.userStore.loggedInUser;
+  console.log("from: ", from);
+  console.log("to: ", to);
   const loggedInPages = ["WritePostPage"];
+
   if (loggedInPages.includes(to.name)) {
-    if (isLoggedIn) {
-      next()
+    await whoAmI();
+    if (store.state.userStore.loggedInUser) {
+      next();
     } else {
-      next("/forbidden")
+      console.log("Forbidden");
+      next("/forbidden");
     }
   }
   next();

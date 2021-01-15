@@ -1,7 +1,9 @@
 const Encrypt = require("../classes/Encrypt");
 const sqlite3 = require("better-sqlite3");
+const path = require("path");
 
-const db = sqlite3("./forum.db"); // I dont understand why only one "./"" works and not "../". Should be "../"
+const pathToDb = path.join(__dirname, "../forum.db");
+const db = sqlite3(pathToDb);
 
 const login = (req, res) => {
   let body = req.body;
