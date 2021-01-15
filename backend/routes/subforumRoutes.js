@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const subForumController = require("../controllers/subForumController");
+const subForumController = require("../controllers/subforumController");
 
 router.get("", subForumController.getAllSubforums);
 router.get("/moderators/:subforumName", subForumController.getModeratorsForSubforum)
