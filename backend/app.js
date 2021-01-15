@@ -33,6 +33,7 @@ app.use("/api/v1/forums", forumRoutes);
 app.use("/api/v1/subforums", subforumRoutes);
 app.use("/api/v1/subjects", subjectRoutes);
 app.use("/api/v1/posts", postRoutes);
+app.use(express.static(path.join(__dirname, "..", "frontend", "dist")))
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
