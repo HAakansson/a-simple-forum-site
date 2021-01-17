@@ -1,5 +1,6 @@
 {
   "/auth/v1/login": { "POST": "anon" },
+  "/auth/v1/register": { "POST": "anon" },
   "/auth*": { "GET": "*" },
   "/api/v1/users/count/getCount": { "GET": "*" },
   "/api/v1/users*": {
@@ -22,5 +23,5 @@
     "DELETE": "moderator"
   },
   "/": { "GET": "*" },
-  "*": { "GET": "*"}
+  "*": { "GET": "*" }
 }

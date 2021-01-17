@@ -4,8 +4,8 @@
       <form class="login-form" @submit.prevent="login">
         <div class="input-fields">
           <p>Logga in</p>
-          <input type="text" v-model="email" placeholder="Email" />
-          <input type="password" v-model="password" placeholder="Lösenord" />
+          <input type="text" v-model="email" placeholder="Email" required/>
+          <input type="password" v-model="password" placeholder="Lösenord" required/>
           <button class="bg-primary">Logga in</button>
           <p v-if="feedback" class="feedback">{{ feedback }}</p>
         </div>

@@ -77,5 +77,17 @@ export const userStore = {
       console.log("Users: ", users);
       commit("setAllUsers", users);
     },
+
+    async registerUser(context, credentials) {
+      let user = await fetch("/auth/v1/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(credentials),
+      });
+      user = await user.json();
+      return user;
+    },
   },
 };

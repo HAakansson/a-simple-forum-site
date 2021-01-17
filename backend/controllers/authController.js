@@ -39,8 +39,33 @@ const logout = (req, res) => {
   }
 };
 
+const registerUser = (req, res) => {
+  let query = db.prepare(/*sql*/ `
+    SELECT email FROM users WHERE email = $email
+  `);
+  let user = query.get(req.body);
+
+  if (user) {
+    res.status(400).json({ error: "Email finns redan registrerat" });
+  }
+
+  req.body.password = Encrypt.multiEncrypt(req.body.password);
+
+  query = db.prepare(/*sql*/ `
+    INSERT INTO users (email, password, username, role) VALUES ($email, $password, $username, $role)
+  `);
+  let info = query.run(req.body);
+
+  if (info.changes) {
+    res.json(info.lastInsertRowid);
+  } else {
+    res.status(404).json({ error: "Något gick fel." });
+  }
+};
+
 module.exports = {
   login,
   whoami,
   logout,
+  registerUser,
 };

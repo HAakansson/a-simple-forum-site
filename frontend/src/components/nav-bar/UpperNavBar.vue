@@ -3,7 +3,7 @@
     <div class="upper-navbar container">
       <p class="new-subjects todo">Nya Ämnen</p>
       <p class="new-posts todo">Nya Inlägg</p>
-      <p v-if="!user" class="register todo">Bli Medlem</p>
+      <p v-if="!user" class="register" @click="register">Bli Medlem</p>
       <p v-else class="user todo">{{user? user.username : "" }}</p>
       <p class="login-logout" @click="loginLogout">{{user ? "Logga ut" : "Logga in"}}</p>
     </div>
@@ -25,6 +25,10 @@ export default class UpperNavBar extends Vue {
     } else if (e.target.innerText === "Logga ut") {
       await this.$store.dispatch("userStore/logout");
     }
+  }
+
+  async register(){
+    this.$router.push("/register");
   }
 }
 </script>
