@@ -67,13 +67,10 @@ const router = new VueRouter({
 });
 
 async function whoAmI() {
-  console.log("Inside whoami");
   return await store.dispatch("userStore/fetchLoggedInUser");
 }
 
 router.beforeEach(async (to, from, next) => {
-  console.log("from: ", from);
-  console.log("to: ", to);
   const loggedInPages = ["WritePostPage"];
 
   if (loggedInPages.includes(to.name)) {
@@ -81,7 +78,6 @@ router.beforeEach(async (to, from, next) => {
     if (store.state.userStore.loggedInUser) {
       next();
     } else {
-      console.log("Forbidden");
       next("/forbidden");
     }
   }

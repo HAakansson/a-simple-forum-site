@@ -14,7 +14,6 @@ module.exports = class Encrypt {
   // Multi encryption makes it more cpu-expensive to run a entire wordlist against a stolen database of passwords... But maybe (not implemented) we could be more obsucre by using the last encryption as th salt for the new one - or incorporate an id in the DB as part of the salt, or a combination of things, BUT REMEMBER, obfuscation can always be reverse-enginereed if someone has your source code.
   static multiEncrypt(password, numberOfEncryptions = 999) {
     while (numberOfEncryptions--) {
-      // console.log(numberOfEncryptions)
       password = this.encrypt(password);
     }
     return password;

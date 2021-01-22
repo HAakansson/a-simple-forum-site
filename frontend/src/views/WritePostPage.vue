@@ -45,11 +45,6 @@ export default class WritePostPage extends Vue {
   content = "";
   checked = false;
 
-  @Watch("checked")
-  onCheckedChange(val) {
-    console.log(val);
-  }
-
   get lastVisitedPath() {
     if (localStorage.getItem("lastVisitedPath")) {
       return JSON.parse(localStorage.getItem("lastVisitedPath"));

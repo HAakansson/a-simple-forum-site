@@ -92,7 +92,6 @@ export default class Subject extends Vue {
   }
 
   lockOrOpenSubject() {
-    console.log(this.locked);
     this.locked = this.locked ? false : true;
     let lockedSubject = this.locked ? 1 : 0;
     let btn = document.querySelector(".reply");
@@ -113,7 +112,6 @@ export default class Subject extends Vue {
         this.subjectId
       );
     }
-    console.log("Remove post by id: ", postId);
   }
 
   putImportantPostsAtTop() {
