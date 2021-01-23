@@ -1,7 +1,7 @@
 <template>
   <div class="forum-list-item">
     <div class="forum-banner bg-primary">
-      <p class="name todo">{{ forum.name }}</p>
+      <p class="name todo" @click="goToForumSubjects">{{ forum.name }}</p>
       <span class="collapse-button"
         ><i class="material-icons todo">minimize</i></span
       >
@@ -32,6 +32,11 @@ export default class ForumListItem extends Vue {
 
   get subforums() {
     return this.$store.getters["forumStore/subforumsByForumId"](this.forum.id);
+  }
+
+  goToForumSubjects(){
+    this.$router.push(`/${this.forum.name}`)
+    console.log(this.forum.id);
   }
 }
 </script>

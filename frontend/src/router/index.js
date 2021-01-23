@@ -9,6 +9,7 @@ import WritePostPage from "../views/WritePostPage";
 import ForbiddenPage from "../views/ForbiddenPage";
 import RegisterPage from "../views/RegisterPage";
 import NotExistsPage from "../views/NotExistsPage";
+import ForumSubjects from "../components/home-page/ForumSubjects";
 
 import store from "../store/index";
 
@@ -20,7 +21,8 @@ const routes = [
     name: "HomePage",
     component: HomePage,
     children: [
-      { path: "", name: "Forum", component: Forum },
+      { path: "/", name: "Forum", component: Forum },
+      {path: "/:forumName", name: "ForumSubjects", component: ForumSubjects},
       {
         path: "/:forumName/:subforumName",
         name: "Subforum",

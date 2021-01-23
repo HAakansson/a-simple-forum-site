@@ -28,9 +28,11 @@ export default class App extends Vue {
     this.$store.commit("setLastVisitedPath", from.path)
   }
 
-  created() {
+  async created() {
+    console.log("In App created")
+    await this.$store.dispatch("forumStore/fetchAllForums");
     this.$store.dispatch("userStore/fetchLoggedInUser");
-    this.$store.dispatch("forumStore/fetchAllForums");
+    console.log(this.$route);
   }
 }
 </script>

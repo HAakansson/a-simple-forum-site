@@ -77,6 +77,18 @@ const lockSubject = (req, res) => {
   }
 }
 
+const getAllSubjectsByForumId = (req, res) => {
+  let query = db.prepare(/*sql*/ `
+    SELECT subjects.id, subjects.name FROM forums
+    JOIN subforums ON subforums.forum_id = forums.id
+    JOIN subjects ON subjects.subforum_id = subforums.id
+    WHERE forums.id = $forumId
+  `);
+
+  let subjects = query.all(req.params);
+  res.json(subjects);
+}
+
 module.exports = {
   getAllSubjects,
   getSubjectBySubjectId,
@@ -84,4 +96,5 @@ module.exports = {
   getAllSubjectsBysubforumId,
   postNewSubject,
   lockSubject,
+  getAllSubjectsByForumId,
 };
