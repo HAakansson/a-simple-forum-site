@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { Vue, Component } from "vue-property-decorator";
+import { Vue, Component, Watch, Prop } from "vue-property-decorator";
 import HeaderRow from "./HeaderRow";
 import SubjectRow from "./SubjectRow";
 
@@ -30,29 +30,41 @@ import SubjectRow from "./SubjectRow";
   },
 })
 export default class extends Vue {
-  get forumId() {
-    return this.$store.state.forumStore.forums.find(
-      (forum) => this.$route.params.forumName === forum.name
-    ).id;
-  }
+  @Prop({ default: null }) forumId;
 
-  get forumName() {
-    return this.$store.state.forumStore.forums.find(
-      (forum) => this.$route.params.forumName === forum.name
-    ).name;
-  }
+  compForumId = this.forumId;
+  forumName = "";
 
   get forumSubjects() {
-    return this.$store.state.subjectStore.forumSubjects;
+    return this.$store.state.subjectStore.forumSubjects || null;
   }
 
-  goToWritePost(){
-    console.log("Go To Post")
+  goToWritePost() {
+    console.log("Go To Post");
   }
 
-  async created() {
+  @Watch("$store.state.forumStore.forums", { deep: true })
+  onForumsChange(forums) {
+    if (!this.$store.state.subjectStore.forumSubjects) {
+      this.forumName = forums.find(
+        (forum) => this.$route.params.forumName === forum.name
+      ).name;
+      this.compForumId = forums.find(
+        (forum) => this.$route.params.forumName === forum.name
+      ).id;
+      this.$store.dispatch(
+        "subjectStore/fetchAllSubjectsByForumId",
+        this.compForumId
+      );
+    }
+  }
+
+  beforeCreate() {
+    this.$store.commit("subjectStore/setForumSubjects", null);
+  }
+
+  created() {
     console.log("forumId: ", this.forumId);
-    console.log("forumName: ", this.forumName);
     this.$store.dispatch(
       "subjectStore/fetchAllSubjectsByForumId",
       this.forumId

@@ -35,8 +35,7 @@ export default class ForumListItem extends Vue {
   }
 
   goToForumSubjects(){
-    this.$router.push(`/${this.forum.name}`)
-    console.log(this.forum.id);
+    this.$router.push({name: "ForumSubjects", params: {forumName: this.forum.name, forumId: this.forum.id}})
   }
 }
 </script>
