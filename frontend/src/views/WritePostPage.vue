@@ -23,8 +23,11 @@
         ></textarea>
         <div class="post-options">
           <button class="send-post bg-primary">Skapa inlägg</button>
-          <label for="important-post">Viktigt?</label>
+          <label v-if="isAdmin || isModerator" for="important-post"
+            >Viktigt?</label
+          >
           <input
+            v-if="isAdmin || isModerator"
             class="check-important"
             id="important-post"
             type="checkbox"
@@ -61,6 +64,10 @@ export default class WritePostPage extends Vue {
     }
   }
 
+  get loggedInUser(){
+    return this.$store.state.userStore.loggedInUser;
+  }
+
   get ifNewPostNotNewSubject() {
     let regex = /\d/g;
     return regex.test(this.lastVisitedPath.split("/").pop());
@@ -70,6 +77,29 @@ export default class WritePostPage extends Vue {
     return this.ifNewPostNotNewSubject
       ? this.$store.state.lastVisitedPath.split("/").pop()
       : null;
+  }
+
+  get moderators() {
+    return this.$store.state.forumStore.moderators;
+  }
+
+  get isModerator() {
+    if (this.$store.getters["userStore/isModerator"]()) {
+      if (this.moderators) {
+        return this.moderators.find(
+          (m) => m.email === this.loggedInUser.email
+        );
+      }
+    }
+    return false;
+  }
+
+  get isAdmin() {
+    return this.$store.getters["userStore/isAdmin"]();
+  }
+
+  get subforumName() {
+    return this.lastVisitedPath.split("/").pop();
   }
 
   async postNewPost() {
@@ -103,6 +133,13 @@ export default class WritePostPage extends Vue {
       this.$store.dispatch("postStore/postNewPost", post);
       this.$router.push(this.lastVisitedPath);
     }
+  }
+
+  created() {
+    this.$store.dispatch(
+      "forumStore/fetchModeratorsForSubforum",
+      this.subforumName
+    );
   }
 
   beforeDestroy() {
