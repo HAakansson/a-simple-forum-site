@@ -2,9 +2,9 @@
   <div class="forum-list-item">
     <div class="forum-banner bg-primary">
       <p class="name" @click="goToForumSubjects">{{ forum.name }}</p>
-      <span class="collapse-button"
+      <!-- <span class="collapse-button"
         ><i class="material-icons todo">minimize</i></span
-      >
+      > -->
     </div>
     <div class="subforum-wrapper">
       <subforum-row

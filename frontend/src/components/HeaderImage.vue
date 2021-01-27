@@ -10,6 +10,7 @@ import { Vue, Component } from "vue-property-decorator";
 @Component
 export default class Header extends Vue {
   goToHomePage(){
+    if (this.$route.path !== "/")
     this.$router.push("/")
   }
 }

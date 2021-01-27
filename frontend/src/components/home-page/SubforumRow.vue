@@ -16,9 +16,9 @@
       </div>
     </div>
 
-    <div class="newest-post todo">
+    <!-- <div class="newest-post todo">
       <p>(Den senaste posten)</p>
-    </div>
+    </div> -->
   </div>
 </template>
 

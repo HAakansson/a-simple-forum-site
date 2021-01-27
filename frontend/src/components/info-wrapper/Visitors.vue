@@ -1,8 +1,8 @@
 <template>
   <div class="visitors">
-    <p class="visitors-online todo">
+    <!-- <p class="visitors-online todo">
       <span class="bold">10000</span> besökare online (hårdkodad)
-    </p>
+    </p> -->
     <p class="posts">
       <span class="bold">{{ posts }}</span> inlägg
     </p>

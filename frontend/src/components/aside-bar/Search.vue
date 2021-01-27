@@ -1,5 +1,5 @@
 <template>
-  <div class="search bg-secondary">
+  <div v-if="false" class="search bg-secondary">
     <form class="search-form" @submit.prevent>
       <input class="todo-bg" type="text" placeholder="Sök..." />
       <button class="search-button bg-primary">

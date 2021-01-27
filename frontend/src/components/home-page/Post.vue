@@ -6,7 +6,7 @@
       <div class="number bold">#{{ nr }}</div>
     </div>
     <div class="post-wrapper">
-      <div class="author-info todo-bg">User nr: {{ post.user_id }}</div>
+      <div class="author-info">user# {{ post.user_id }}</div>
       <div class="post-content" :class="{ important_post: post.important }">
         <p class="content">{{ post.content }}</p>
         <span

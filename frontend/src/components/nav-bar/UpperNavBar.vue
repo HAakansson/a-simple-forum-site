@@ -1,10 +1,10 @@
 <template>
   <div class="upper-navbar-wrapper bg-primary">
     <div class="upper-navbar container">
-      <p class="new-subjects todo">Nya Ämnen</p>
-      <p class="new-posts todo">Nya Inlägg</p>
+      <p class="home" @click="goToHome">Hem</p>
+      <!-- <p class="new-posts todo">Nya Inlägg</p>  -->
       <p v-if="!user" class="register" @click="register">Bli Medlem</p>
-      <p v-else class="user todo">{{user? user.username : "" }}</p>
+      <p v-else class="user">{{user? user.username.toUpperCase() : "" }}</p>
       <p class="login-logout" @click="loginLogout">{{user ? "Logga ut" : "Logga in"}}</p>
     </div>
   </div>
@@ -17,6 +17,12 @@ import { Vue, Component } from "vue-property-decorator";
 export default class UpperNavBar extends Vue {
   get user () {
     return this.$store.state.userStore.loggedInUser;
+  }
+
+  goToHome(){
+    if (this.$route.path !== "/"){
+      this.$router.push("/")
+    }
   }
 
   async loginLogout(e){
@@ -46,12 +52,12 @@ export default class UpperNavBar extends Vue {
     justify-items: center;
 
     p {
-      cursor: pointer;
+      // cursor: pointer;
       margin: 0;
 
-      &:hover {
-        color: white;
-      }
+      // &:hover {
+      //   color: white;
+      // }
     }
 
     .register,
@@ -70,8 +76,16 @@ export default class UpperNavBar extends Vue {
       justify-self: end;
     }
 
-    .user {
+    .login-logout,
+    .register,
+    .home {
+      cursor: pointer;
+
+      &:hover {
+        color: white;
+      }
     }
+
   }
 }
 </style>

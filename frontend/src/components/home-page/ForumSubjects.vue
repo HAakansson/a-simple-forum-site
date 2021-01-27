@@ -4,9 +4,9 @@
       <p class="name">{{ forumName }}</p>
     </div>
     <!-- <moderator-banner :subforumName="subforumName" /> -->
-    <button class="new-subject todo" @click="goToWritePost">
+    <!-- <button class="new-subject todo" @click="goToWritePost">
       <i class="material-icons">create</i> Nytt ämne
-    </button>
+    </button> -->
     <header-row />
     <div class="subject-wrapper">
       <subject-row
@@ -37,10 +37,6 @@ export default class extends Vue {
 
   get forumSubjects() {
     return this.$store.state.subjectStore.forumSubjects || null;
-  }
-
-  goToWritePost() {
-    console.log("Go To Post");
   }
 
   @Watch("$store.state.forumStore.forums", { deep: true })

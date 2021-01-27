@@ -1,14 +1,14 @@
 <template>
   <div class="lower-navbar-wrapper bg-secondary">
     <div class="lower-navbar container bg-secondary ">
-      <p
+      <!-- <p
         class=""
         v-for="subforum in subforums"
         :key="subforum.id"
         @click="goToForumSubjects(subforum)"
       >
         {{ subforum.name }}
-      </p>
+      </p> -->
     </div>
   </div>
 </template>

@@ -4,9 +4,9 @@
       <span class="name">{{ subject.name }}</span>
       <span class="creator">{{ subject.creator }}</span>
     </span>
-    <span class="answers todo">svar</span>
+    <!-- <span class="answers todo">svar</span>
     <span class="shows todo">visningar</span>
-    <span class="latestPost todo">senaste</span>
+    <span class="latestPost todo">senaste</span> -->
   </div>
 </template>
 

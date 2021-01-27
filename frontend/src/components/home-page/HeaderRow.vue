@@ -1,10 +1,10 @@
 <template>
   <div class="header-row">
     <span class="subject underline bold">Ämne</span>
-    <span class="latestNew underline bold">Senast startade trådar</span>
+    <!-- <span class="latestNew underline bold">Senast startade trådar</span>
     <span class="answers underline bold">Svar</span>
     <span class="shows underline bold">Visningar</span>
-    <span class="latestPost underline bold">Senaste Inlägg</span>
+    <span class="latestPost underline bold">Senaste Inlägg</span> -->
   </div>
 </template>
 
