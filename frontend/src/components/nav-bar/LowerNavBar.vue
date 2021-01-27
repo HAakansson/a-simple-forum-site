@@ -23,7 +23,7 @@ export default class LowerNavBar extends Vue {
   }
 
   goToForumSubjects(subforum) {
-    if (!this.$route.path.includes("Forumsubjects")) {
+    if (!this.$route.path.includes(subforum.name)) {
       this.$router.push({
         name: "ForumSubjects",
         params: { forumName: subforum.name, forumId: null },
