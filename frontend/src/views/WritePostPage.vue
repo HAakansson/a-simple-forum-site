@@ -37,18 +37,13 @@
 </template>
 
 <script>
-import { Vue, Component, Watch } from "vue-property-decorator";
+import { Vue, Component } from "vue-property-decorator";
 
 @Component
 export default class WritePostPage extends Vue {
   header = "";
   content = "";
   checked = false;
-
-  @Watch("checked")
-  onCheckedChange(val) {
-    console.log(val);
-  }
 
   get lastVisitedPath() {
     if (localStorage.getItem("lastVisitedPath")) {

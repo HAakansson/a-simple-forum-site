@@ -42,8 +42,6 @@ const addNewModerator = (req, res) => {
 };
 
 const removeModerator = (req, res) => {
-  console.log();
-  console.log(req.body);
   let query = db.prepare(/*sql*/ `
     SELECT id FROM subforums WHERE name = $subforumName
   `);

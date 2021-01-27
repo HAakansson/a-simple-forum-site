@@ -25,13 +25,12 @@ import InfoWrapper from "./components/InfoWrapper";
 export default class App extends Vue {
   @Watch("$route")
   onRouteChange(to, from) {
-    console.log(from.path)
     this.$store.commit("setLastVisitedPath", from.path)
   }
 
-  created() {
+  async created() {
+    await this.$store.dispatch("forumStore/fetchAllForums");
     this.$store.dispatch("userStore/fetchLoggedInUser");
-    this.$store.dispatch("forumStore/fetchAllForums");
   }
 }
 </script>

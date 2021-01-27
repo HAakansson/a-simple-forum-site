@@ -9,6 +9,7 @@ import WritePostPage from "../views/WritePostPage";
 import ForbiddenPage from "../views/ForbiddenPage";
 import RegisterPage from "../views/RegisterPage";
 import NotExistsPage from "../views/NotExistsPage";
+import ForumSubjects from "../components/home-page/ForumSubjects";
 
 import store from "../store/index";
 
@@ -20,14 +21,20 @@ const routes = [
     name: "HomePage",
     component: HomePage,
     children: [
-      { path: "", name: "Forum", component: Forum },
+      { path: "/", name: "Forum", component: Forum },
       {
-        path: "/:forumName/:subforumName",
+        path: "/Forumsubjects/:forumName",
+        name: "ForumSubjects",
+        component: ForumSubjects,
+        props: true,
+      },
+      {
+        path: "/Subforum/:forumName/:subforumName",
         name: "Subforum",
         component: Subforum,
       },
       {
-        path: "/:forumName/:subforumName/:subjectId",
+        path: "/Subject/:forumName/:subforumName/:subjectId",
         name: "Subject",
         component: Subject,
       },
@@ -67,13 +74,10 @@ const router = new VueRouter({
 });
 
 async function whoAmI() {
-  console.log("Inside whoami");
   return await store.dispatch("userStore/fetchLoggedInUser");
 }
 
 router.beforeEach(async (to, from, next) => {
-  console.log("from: ", from);
-  console.log("to: ", to);
   const loggedInPages = ["WritePostPage"];
 
   if (loggedInPages.includes(to.name)) {
@@ -81,7 +85,6 @@ router.beforeEach(async (to, from, next) => {
     if (store.state.userStore.loggedInUser) {
       next();
     } else {
-      console.log("Forbidden");
       next("/forbidden");
     }
   }

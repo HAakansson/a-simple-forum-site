@@ -37,7 +37,7 @@ export default class SubforumRow extends Vue {
   postCount = null;
 
   get subforumPath() {
-    return `/${this.forumName}/${this.subforum.name}`;
+    return `/Subforum/${this.forumName}/${this.subforum.name}`;
   }
 
   async fetchTotalNumberOfSubjectsBySubforumId(subforumId) {

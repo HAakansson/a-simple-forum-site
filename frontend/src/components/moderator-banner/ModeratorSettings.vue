@@ -63,7 +63,6 @@ export default class ModeratorSettings extends Vue {
 
   async assignModerator() {
     if (this.newMod) {
-      console.log(this.newMod);
       let newModerator = {
         user_id: this.newMod,
         subforumName: this.subforumName,
@@ -91,7 +90,6 @@ export default class ModeratorSettings extends Vue {
 
   async removeModerator() {
     if (this.removeMod) {
-      console.log(this.removeMod);
       let remModerator = {
         user_id: this.removeMod,
         subforumName: this.subforumName,

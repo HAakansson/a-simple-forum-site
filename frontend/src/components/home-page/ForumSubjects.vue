@@ -1,16 +1,16 @@
 <template>
   <div class="subforum">
     <div class="subforum-banner bg-primary">
-      <p class="name">{{ subforumPath }}</p>
+      <p class="name">{{ forumName }}</p>
     </div>
-    <moderator-banner :subforumName="subforumName" />
-    <button class="new-subject" @click="goToWritePost">
+    <!-- <moderator-banner :subforumName="subforumName" /> -->
+    <button class="new-subject todo" @click="goToWritePost">
       <i class="material-icons">create</i> Nytt ämne
     </button>
     <header-row />
     <div class="subject-wrapper">
       <subject-row
-        v-for="subject in subjects"
+        v-for="subject in forumSubjects"
         :key="subject.id"
         :subject="subject"
       />
@@ -19,52 +19,50 @@
 </template>
 
 <script>
-import { Vue, Component } from "vue-property-decorator";
-import ModeratorBanner from "./ModeratorBanner";
+import { Vue, Component, Watch, Prop } from "vue-property-decorator";
 import HeaderRow from "./HeaderRow";
 import SubjectRow from "./SubjectRow";
 
 @Component({
   components: {
-    ModeratorBanner,
     HeaderRow,
     SubjectRow,
   },
 })
-export default class Subforum extends Vue {
-  get subjects() {
-    return this.$store.state.subjectStore.subjects;
-  }
+export default class extends Vue {
+  @Prop({ default: null }) forumId;
 
-  get subforumPath() {
-    return this.$route.path.replace("/", "").replace(/%20/g, " ");
-  }
+  compForumId = this.forumId;
+  forumName = "";
 
-  get subforumName() {
-    return this.subforumPath.split("/").pop();
-  }
-
-  get loggedInUser() {
-    return this.$store.state.userStore.loggedInUser;
+  get forumSubjects() {
+    return this.$store.state.subjectStore.forumSubjects || null;
   }
 
   goToWritePost() {
-    if (this.loggedInUser) {
-      this.$router.push("/write-post");
-    } else {
-      this.$router.push("/login");
-    }
+    console.log("Go To Post");
   }
 
-  beforeCreate() {
-    this.$store.commit("forumStore/setModerators", null);
-    this.$store.commit("subjectStore/setSubjects", null);
+  @Watch("$store.state.forumStore.forums", { deep: true })
+  onForumsChange(forums) {
+    if (!this.$store.state.subjectStore.forumSubjects) {
+      this.forumName = forums.find(
+        (forum) => this.$route.params.forumName === forum.name
+      ).name;
+      this.compForumId = forums.find(
+        (forum) => this.$route.params.forumName === forum.name
+      ).id;
+      this.$store.dispatch(
+        "subjectStore/fetchAllSubjectsByForumId",
+        this.compForumId
+      );
+    }
   }
 
   created() {
     this.$store.dispatch(
-      "subjectStore/fetchAllSubjectsBySubforumName",
-      this.subforumName
+      "subjectStore/fetchAllSubjectsByForumId",
+      this.forumId
     );
   }
 }

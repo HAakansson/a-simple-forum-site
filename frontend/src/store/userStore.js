@@ -43,7 +43,6 @@ export const userStore = {
     async fetchLoggedInUser({ commit }) {
       let user = await fetch("/auth/v1/whoami");
       user = await user.json();
-      console.log("User: ", user);
       commit("setLoggedInUser", user);
     },
 
@@ -56,7 +55,6 @@ export const userStore = {
         body: JSON.stringify(credentials),
       });
       user = await user.json();
-      console.log("User: ", user);
       if (!user) {
         console.log("Could not log in!");
       }
@@ -67,14 +65,12 @@ export const userStore = {
     async logout({ commit }) {
       let result = await fetch("/auth/v1/logout");
       result = await result.json();
-      console.log(result);
       commit("setLoggedInUser", null);
     },
 
     async fetchAllUsers({ commit }) {
       let users = await fetch("/api/v1/users");
       users = await users.json();
-      console.log("Users: ", users);
       commit("setAllUsers", users);
     },
 

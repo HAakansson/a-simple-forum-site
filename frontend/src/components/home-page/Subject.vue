@@ -1,7 +1,7 @@
 <template>
   <div class="subject">
     <div class="subject-banner bg-primary">
-      <p class="name todo">{{ subforumPath }}</p>
+      <p class="name">{{ subforumPath }}</p>
     </div>
     <h3 class="subject-header">{{ subject.name }}</h3>
     <div class="subject-options">
@@ -92,7 +92,6 @@ export default class Subject extends Vue {
   }
 
   lockOrOpenSubject() {
-    console.log(this.locked);
     this.locked = this.locked ? false : true;
     let lockedSubject = this.locked ? 1 : 0;
     let btn = document.querySelector(".reply");
@@ -113,7 +112,6 @@ export default class Subject extends Vue {
         this.subjectId
       );
     }
-    console.log("Remove post by id: ", postId);
   }
 
   putImportantPostsAtTop() {

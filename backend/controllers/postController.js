@@ -45,8 +45,6 @@ const postNewPost = (req, res) => {
   req.body.user_id = req.session.user.id;
   req.body.timestamp = Date.now();
 
-  console.log("BODY: ", req.body)
-
   let query = db.prepare(/*sql*/ `
     INSERT INTO posts (content, subject_id, user_id, timestamp, important) VALUES ($content, $subject_id, $user_id, $timestamp, $important)
   `);

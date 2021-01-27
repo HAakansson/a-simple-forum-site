@@ -2,6 +2,7 @@ export const subjectStore = {
   namespaced: true,
 
   state: {
+    forumSubjects: null,
     subjects: null,
     subject: null,
   },
@@ -22,20 +23,28 @@ export const subjectStore = {
     setSubjects(state, payload) {
       state.subjects = payload;
     },
+
+    setForumSubjects(state, payload) {
+      state.forumSubjects = payload;
+    }
   },
 
   actions: {
+    async fetchAllSubjectsByForumId({ commit }, forumId) {
+      let forumSubjects = await fetch(`/api/v1/subjects/forum/${forumId}`);
+      forumSubjects = await forumSubjects.json();
+      commit("setForumSubjects", forumSubjects);
+    },
+
     async fetchSubjectBySubjectId({ commit }, subjectId) {
       let subject = await fetch(`/api/v1/subjects/${subjectId}`);
       subject = await subject.json();
-      console.log(`Subject by subjectId: ${subjectId}`, subject);
       commit("setSubject", subject);
     },
 
     async fetchAllSubjectsBySubforumName({ commit }, subForumName) {
       let subjects = await fetch(`/api/v1/subjects/subforum/${subForumName}`);
       subjects = await subjects.json();
-      console.log(`Subjects by subforumName: ${subForumName}`, subjects);
       commit("setSubjects", subjects);
     },
 

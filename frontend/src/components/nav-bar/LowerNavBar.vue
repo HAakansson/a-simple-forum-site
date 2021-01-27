@@ -1,7 +1,12 @@
 <template>
   <div class="lower-navbar-wrapper bg-secondary">
     <div class="lower-navbar container bg-secondary ">
-      <p v-for="subforum in subforums" :key="subforum.id">
+      <p
+        class=""
+        v-for="subforum in subforums"
+        :key="subforum.id"
+        @click="goToForumSubjects(subforum)"
+      >
         {{ subforum.name }}
       </p>
     </div>
@@ -15,6 +20,15 @@ import { Vue, Component } from "vue-property-decorator";
 export default class LowerNavBar extends Vue {
   get subforums() {
     return this.$store.state.forumStore.forums;
+  }
+
+  goToForumSubjects(subforum) {
+    if (!this.$route.path.includes("Forumsubjects")) {
+      this.$router.push({
+        name: "ForumSubjects",
+        params: { forumName: subforum.name, forumId: null },
+      });
+    }
   }
 }
 </script>
@@ -31,7 +45,6 @@ export default class LowerNavBar extends Vue {
 
     p {
       cursor: pointer;
-      color: red;
       margin: 0;
       margin-right: 2rem;
       padding: 0.3rem;

@@ -21,7 +21,6 @@ export const postStore = {
     async fetchAllPostsBySubjectId({ commit }, subjectId) {
       let posts = await fetch(`/api/v1/posts/subject/${subjectId}`);
       posts = await posts.json();
-      console.log(`Posts by subforumId: ${subjectId}: `, posts);
       commit("setPosts", posts);
     },
 

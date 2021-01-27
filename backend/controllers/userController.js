@@ -38,11 +38,22 @@ const getUserById = (req, res) => {
 
 const createUser = (req, res) => {
   let body = req.body;
+  let emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  let passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/;
 
-  if (body.password) {
+  if (!emailRegex.test(body.email)) {
+    res.status(400).json({
+      error: "You must have a proper email.",
+    });
+    return;
+  }
+
+  if (body.password && passwordRegex.test(body.password)) {
     body.password = Encrypt.multiEncrypt(body.password);
   } else {
-    res.status(400).json({ error: "You must have a password." });
+    res.status(400).json({
+      error: "You must have a password or the password is not strong enough.",
+    });
     return;
   }
 
