@@ -22,6 +22,7 @@
             v-model="password"
             placeholder="Lösenord"
             required
+            @blur="validatePassword"
           />
           <button class="bg-primary register-button">Registrera</button>
           <p v-if="feedback" class="feedback">{{ feedback }}</p>
@@ -41,6 +42,7 @@ export default class RegisterPage extends Vue {
   username = "";
   feedback = null;
   emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/;
 
   get lastVisitedPath() {
     return this.$store.state.lastVisitedPath;
@@ -58,6 +60,24 @@ export default class RegisterPage extends Vue {
       btn.classList.remove("bg-primary");
       btn.style.cursor = "not-allowed";
       this.feedback = "Felaktig email";
+      setTimeout(() => {
+        this.feedback = null;
+      }, 3000);
+    }
+  }
+
+  validatePassword() {
+    let btn = document.querySelector(".register-button");
+    if (this.passwordRegex.test(this.password)) {
+      btn.disabled = false;
+      btn.classList.add("bg-primary");
+      btn.style.cursor = "pointer";
+    } else {
+      btn.disabled = true;
+      btn.classList.remove("bg-primary");
+      btn.style.cursor = "not-allowed";
+      this.feedback =
+        "Lösenordet måste innehålla minst: en liten bokstav, en stor bokstav, en siffra samt vara minst 8 tecken långt.";
       setTimeout(() => {
         this.feedback = null;
       }, 3000);
