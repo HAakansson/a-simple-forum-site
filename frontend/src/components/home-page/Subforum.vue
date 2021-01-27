@@ -1,7 +1,7 @@
 <template>
   <div class="subforum">
     <div class="subforum-banner bg-primary">
-      <p class="name todo">{{ subforumPath }}</p>
+      <p class="name">{{ subforumPath }}</p>
     </div>
     <moderator-banner :subforumName="subforumName" />
     <button class="new-subject" @click="goToWritePost">
@@ -79,14 +79,6 @@ export default class Subforum extends Vue {
     color: lightgray;
     justify-content: space-between;
     padding: 0 0.3rem;
-
-    .name {
-      cursor: pointer;
-
-      &:hover {
-        color: white;
-      }
-    }
   }
 
   .new-subject {

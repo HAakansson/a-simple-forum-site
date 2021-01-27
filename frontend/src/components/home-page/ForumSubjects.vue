@@ -1,10 +1,10 @@
 <template>
   <div class="subforum">
     <div class="subforum-banner bg-primary">
-      <p class="name todo">{{ forumName }}</p>
+      <p class="name">{{ forumName }}</p>
     </div>
     <!-- <moderator-banner :subforumName="subforumName" /> -->
-    <button class="new-subject" @click="goToWritePost">
+    <button class="new-subject todo" @click="goToWritePost">
       <i class="material-icons">create</i> Nytt ämne
     </button>
     <header-row />
@@ -59,12 +59,7 @@ export default class extends Vue {
     }
   }
 
-  beforeCreate() {
-    this.$store.commit("subjectStore/setForumSubjects", null);
-  }
-
   created() {
-    console.log("forumId: ", this.forumId);
     this.$store.dispatch(
       "subjectStore/fetchAllSubjectsByForumId",
       this.forumId
@@ -73,4 +68,35 @@ export default class extends Vue {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.subforum {
+  .subforum-banner {
+    align-items: center;
+    border: 1px solid black;
+    display: flex;
+    color: lightgray;
+    justify-content: space-between;
+    padding: 0 0.3rem;
+  }
+
+  .new-subject {
+    align-items: center;
+    background: lightgray;
+    border: 1px solid gray;
+    cursor: pointer;
+    display: inline-flex;
+    font-size: 0.7rem;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+
+    i {
+      font-size: 1rem;
+      margin-right: 0.5rem;
+    }
+  }
+
+  .subject-wrapper {
+    margin-top: 0.8rem;
+  }
+}
+</style>

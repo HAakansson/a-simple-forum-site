@@ -23,18 +23,18 @@ const routes = [
     children: [
       { path: "/", name: "Forum", component: Forum },
       {
-        path: "/:forumName",
+        path: "/Forumsubjects/:forumName",
         name: "ForumSubjects",
         component: ForumSubjects,
         props: true,
       },
       {
-        path: "/:forumName/:subforumName",
+        path: "/Subforum/:forumName/:subforumName",
         name: "Subforum",
         component: Subforum,
       },
       {
-        path: "/:forumName/:subforumName/:subjectId",
+        path: "/Subject/:forumName/:subforumName/:subjectId",
         name: "Subject",
         component: Subject,
       },

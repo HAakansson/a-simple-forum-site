@@ -79,10 +79,11 @@ const lockSubject = (req, res) => {
 
 const getAllSubjectsByForumId = (req, res) => {
   let query = db.prepare(/*sql*/ `
-    SELECT subjects.id, subjects.name FROM forums
-    JOIN subforums ON subforums.forum_id = forums.id
-    JOIN subjects ON subjects.subforum_id = subforums.id
-    WHERE forums.id = $forumId
+  SELECT f.name AS forum_name, s.id, s.name, s.subforum_id, s.user_id, sf.name AS subforum_name, u.username AS creator FROM forums AS f
+  JOIN subforums AS sf ON sf.forum_id = f.id
+  JOIN subjects AS s ON s.subforum_id = sf.id
+  JOIN users AS u ON u.id = s.user_id
+  WHERE f.id = $forumId
   `);
 
   let subjects = query.all(req.params);

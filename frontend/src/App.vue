@@ -29,10 +29,8 @@ export default class App extends Vue {
   }
 
   async created() {
-    console.log("In App created")
     await this.$store.dispatch("forumStore/fetchAllForums");
     this.$store.dispatch("userStore/fetchLoggedInUser");
-    console.log(this.$route);
   }
 }
 </script>

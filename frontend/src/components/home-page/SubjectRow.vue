@@ -18,10 +18,18 @@ export default class SubforumRow extends Vue {
   @Prop()
   subject;
 
-  goToSubject(){
-    this.$router.push(`${this.$route.path}/${this.subject.id}`);
+  goToSubject() {
+    let path;
+    if (this.$route.path.includes("/Forumsubjects")) {
+      path = `/Subject/${this.subject.forum_name}/${this.subject.subforum_name}`;
+    } else {
+      path = this.$route.path.replace("/Subforum", "/Subject");
+    }
+    this.$router.push(`${path}/${this.subject.id}`);
   }
 
+  created() {
+  }
 }
 </script>
 

@@ -31,7 +31,6 @@ export const forumStore = {
     async fetchAllForums({ commit }) {
       let forums = await fetch("/api/v1/forums");
       forums = await forums.json();
-      console.log("Forums: ", forums)
       commit("setForums", forums);
     },
     

@@ -1,7 +1,7 @@
 <template>
   <div class="subject">
     <div class="subject-banner bg-primary">
-      <p class="name todo">{{ subforumPath }}</p>
+      <p class="name">{{ subforumPath }}</p>
     </div>
     <h3 class="subject-header">{{ subject.name }}</h3>
     <div class="subject-options">

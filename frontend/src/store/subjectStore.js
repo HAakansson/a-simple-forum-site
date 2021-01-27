@@ -33,7 +33,6 @@ export const subjectStore = {
     async fetchAllSubjectsByForumId({ commit }, forumId) {
       let forumSubjects = await fetch(`/api/v1/subjects/forum/${forumId}`);
       forumSubjects = await forumSubjects.json();
-      console.log("forumSubjects: ", forumSubjects);
       commit("setForumSubjects", forumSubjects);
     },
 
