@@ -7,7 +7,7 @@ const db = sqlite3(pathToDb);
 
 const login = (req, res) => {
   let body = req.body;
-  console.log(body);
+  // console.log(body);
 
   if (body.password) {
     body.password = Encrypt.multiEncrypt(body.password);

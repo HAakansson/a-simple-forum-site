@@ -26,14 +26,7 @@ const getCountOfSubjects = (req, res) => {
   `);
 
   let result = query.get(req.params);
-  if (result.count) {
     res.json(result.count);
-    return;
-  } else {
-    res
-      .status(400)
-      .json({ error: "Subforum does not exists or does not have any posts" });
-  }
 };
 
 const getAllSubjectsBysubforumId = (req, res) => {
@@ -44,16 +37,7 @@ const getAllSubjectsBysubforumId = (req, res) => {
   `);
 
   let results = query.all(req.params);
-  if (results.length > 0) {
     res.json(results);
-    return;
-  } else {
-    res
-      .status(400)
-      .json({
-        error: "The subforum does not exists or does not have any subjects",
-      });
-  }
 };
 
 const postNewSubject = (req, res) => {
@@ -108,14 +92,7 @@ const getAllSubjectsByForumId = (req, res) => {
   `);
 
   let subjects = query.all(req.params);
-  if (subjects > 0) {
     res.json(subjects);
-    return;
-  } else {
-    res.status(400).json({
-      error: "The forum does not exists or does not have any subjects",
-    });
-  }
 };
 
 module.exports = {

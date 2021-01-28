@@ -24,7 +24,13 @@ module.exports = (req, res, next) => {
   // Remove last "/"" from the request path.
   let requestPath = req.path.endsWith("/")
     ? req.path.replace(/\/$/, "")
-    : req.path
+    : req.path;
+
+  if (requestPath === "") {
+    requestPath = "/";
+  }
+
+  // console.log("path:", requestPath);
 
   let controlList = Object.entries(aclJson).filter(([url, method]) => {
     // This if handles matching URL with wildcard endings.
@@ -35,7 +41,7 @@ module.exports = (req, res, next) => {
     }
   });
 
-  console.log("ControlList 1: ", controlList)
+  // console.log("ControlList 1: ", controlList);
 
   function hasRole(permission) {
     if (!permission) {
@@ -53,7 +59,7 @@ module.exports = (req, res, next) => {
     return hasRole(permission["ALL"]) || hasRole(permission[req.method]);
   });
 
-  console.log("controlList 2: ", controlList)
+  // console.log("controlList 2: ", controlList);
 
   if (Object.keys(controlList).length > 0) {
     next();

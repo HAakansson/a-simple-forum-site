@@ -23,5 +23,8 @@
     "DELETE": "moderator"
   },
   "/api-docs*": { "GET": "*" },
+  "/favicon.ico*": { "GET": "*" },
+  "/css*": { "GET": "*" },
+  "/js*": { "GET": "*" },
   "/": { "GET": "*" }
 }
