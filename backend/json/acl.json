@@ -5,16 +5,16 @@
   "/api/v1/users/count/getCount": { "GET": "*" },
   "/api/v1/users*": {
     "ALL": "admin",
-    "POST": "anon",
     "PUT": "author,moderator",
     "GET": "moderator"
   },
   "/api/v1/forums*": { "GET": "*" },
+  "/api/v1/subforums/moderators*": { "GET": "moderator, admin" },
   "/api/v1/subforums/new-moderator": { "POST": "admin" },
   "/api/v1/subforums/remove-moderator": { "POST": "admin" },
   "/api/v1/subforums/update-moderator": { "PUT": "admin" },
-  "/api/v1/subforums*": { "GET": "*" },
-  "/api/v1/subforums/lock*": { "PUT": "moderator,admin" },
+  "/api/v1/subforums": { "GET": "*" },
+  "/api/v1/subjects/lock*": { "PUT": "moderator,admin" },
   "/api/v1/subjects*": { "POST": "author,moderator,admin", "GET": "*" },
   "/api/v1/posts*": {
     "ALL": "admin",
@@ -22,6 +22,6 @@
     "GET": "*",
     "DELETE": "moderator"
   },
-  "/": { "GET": "*" },
-  "*": { "GET": "*" }
+  "/api-docs*": { "GET": "*" },
+  "/": { "GET": "*" }
 }

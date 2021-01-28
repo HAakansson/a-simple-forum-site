@@ -1,0 +1,448 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "API Docs for A Simple Forum App",
+    "version": "1.0.0",
+    "description": "This is a simple API documentation of the routes of A Simple Forum App "
+  },
+
+  "tags": [
+    {
+      "name": "Authentication"
+    },
+    {
+      "name": "Users"
+    },
+    {
+      "name": "Forums"
+    },
+    {
+      "name": "Subforums"
+    },
+    {
+      "name": "Subjects"
+    },
+    {
+      "name": "Posts"
+    }
+  ],
+
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+
+  "paths": {
+    "/auth/v1/login": {
+      "post": {
+        "tags": ["Auhtentication"],
+        "summary": "Login to the forum. Roles allowed: anon",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "Credentials",
+            "properties": {
+              "email": {
+                "type": "string",
+                "example": "name@something.com"
+              },
+              "password": {
+                "type": "string",
+                "example": "Test1234!"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Login Successful"
+          },
+          "401": {
+            "description": "Bad Credentials"
+          },
+          "403": {
+            "description": "You are not allowed to execute this action."
+          },
+          "404": {
+            "description": "Login failed"
+          }
+        }
+      }
+    },
+    "/auth/v1/register": {
+      "post": {
+        "tags": ["Auhtentication"],
+        "summary": "Register an account to the forum. Roles allowed: anon",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "Credentials",
+            "properties": {
+              "email": {
+                "type": "string",
+                "example": "name@something.com"
+              },
+              "username": {
+                "type": "string",
+                "example": "username"
+              },
+              "password": {
+                "type": "string",
+                "example": "Test1234!"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Login Successful"
+          },
+          "400": {
+            "description": "Badly formed email or password OR User already exists"
+          },
+          "403": {
+            "description": "You are not allowed to execute this action."
+          },
+          "404": {
+            "description": "Register Failed"
+          }
+        }
+      }
+    },
+    "/auth/v1/whoami": {
+      "get": {
+        "tags": ["Auhtentication"],
+        "summary": "Request the current user session. Roles allowed: *",
+        "responses": {
+          "200": {
+            "description": "Displays current user or null"
+          }
+        }
+      }
+    },
+    "/auth/v1/logout": {
+      "get": {
+        "tags": ["Auhtentication"],
+        "summary": "Logout the current user session. Roles allowed: *",
+        "responses": {
+          "200": {
+            "description": "Logout sucessfull OR No one to logout"
+          }
+        }
+      }
+    },
+    "/api/v1/users/count/getCount": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Gets the number of users. Roles allowed: *",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/users": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Gets all users. Roles allowed: moderator, admin",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "You are not allowed to execute this action"
+          }
+        }
+      }
+    },
+    "/api/v1/forums": {
+      "get": {
+        "tags": ["Forums"],
+        "summary": "Gets all forums. Roles allowed: *",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/subforums": {
+      "get": {
+        "tags": ["Subforums"],
+        "summary": "Gets all subforums. Roles allowed: *",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/subforums/moderators/{subforumName}": {
+      "get": {
+        "tags": ["Subforums"],
+        "summary": "Gets all moderators for a specific subforum. Roles allowed: moderator, admin",
+        "parameters": [
+          {
+            "in": "path",
+            "type": "string",
+            "name": "subforumName",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/subforums/new-moderator": {
+      "post": {
+        "tags": ["Subforums"],
+        "summary": "Promotes a user from an author to a mdoerator. Roles allowed: admin",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "properties": {
+              "subforumName": {
+                "type": "string",
+                "example": "Bollsport"
+              },
+              "user_id": {
+                "type": "number",
+                "example": 2
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Promoting the user was succesfull"
+          },
+          "400": {
+            "description": "No such subforum exists"
+          },
+          "403": {
+            "description": "You are not allowed to execute this action"
+          },
+          "404": {
+            "description": "Promotion failed"
+          }
+        }
+      }
+    },
+    "/api/v1/subforums/remove-moderator": {
+      "post": {
+        "tags": ["Subforums"],
+        "summary": "Demotes a user from an moderator to a author for a specific subforum. Roles allowed: admin",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "properties": {
+              "subforumName": {
+                "type": "string",
+                "example": "Bollsport"
+              },
+              "user_id": {
+                "type": "number",
+                "example": 2
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Demotion of user was successfull"
+          },
+          "400": {
+            "description": "No such subforum exists"
+          },
+          "403": {
+            "description": "You are not allowed to execute this action"
+          },
+          "404": {
+            "description": "Demotion failed"
+          }
+        }
+      }
+    },
+    "/api/v1/subjects/lock/{subjectId}": {
+      "put": {
+        "tags": ["Subjects"],
+        "summary": "Open or closes a subject. Roles allowed: moderator, admin",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "subjectId",
+            "properties": {
+              "subjectId": {
+                "type": "number",
+                "example": "1"
+              }
+            }
+          },
+          {
+            "in": "body",
+            "name": "locked",
+            "properties": {
+              "locked": {
+                "type": "number",
+                "example": "0 (false) or 1 (true)"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Update successfull"
+          },
+
+          "404": {
+            "description": "Update failed"
+          }
+        }
+      }
+    },
+    "/api/v1/subjects": {
+      "get": {
+        "tags": ["Subjects"],
+        "summary": "Requests all the subjects. Roles allowed: *",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Subjects"],
+        "summary": "Post a new post to the forum. Roles allowed: author, moderator, admin",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "properties": {
+              "subforumName": {
+                "type": "string",
+                "example": "Bollsport"
+              },
+              "name": {
+                "type": "string",
+                "example": "namn"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "The forum does not exists or does not have any subjects"
+          }
+        }
+      }
+    },
+    "/api/v1/subjects/{subjectId}": {
+      "get": {
+        "tags": ["Subjects"],
+        "summary": "Requests a subject by subjectId. Roles allowed: *",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "subjectId",
+            "properties": {
+              "subjectId": {
+                "type": "number",
+                "example": 1
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/subjects/{subforumId}/count": {
+      "get": {
+        "tags": ["Subjects"],
+        "summary": "Requests the number of subjects by subforumId. Roles allowed: *",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "subforumId",
+            "properties": {
+              "subforumId": {
+                "type": "number",
+                "example": 1
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Subforum does not exists or does not have any posts"
+          }
+        }
+      }
+    },
+    "/api/v1/subjects/subforum/{subforumName}": {
+      "get": {
+        "tags": ["Subjects"],
+        "summary": "Requests the subjects by subforumName. Roles allowed: *",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "subforumName",
+            "properties": {
+              "subforumName": {
+                "type": "string",
+                "example": "Bollsport"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "The subforum does not exists or does not have any subjects"
+          }
+        }
+      }
+    },
+    "/api/v1/subjects/forum/{forumId}": {
+      "get": {
+        "tags": ["Subjects"],
+        "summary": "Requests the subjects by subforumName. Roles allowed: *",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "forumId",
+            "properties": {
+              "forumId": {
+                "type": "number",
+                "example": "1"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "The forum does not exists or does not have any subjects"
+          }
+        }
+      }
+    }
+  }
+}

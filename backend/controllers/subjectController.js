@@ -26,7 +26,14 @@ const getCountOfSubjects = (req, res) => {
   `);
 
   let result = query.get(req.params);
-  res.json(result.count);
+  if (result.count) {
+    res.json(result.count);
+    return;
+  } else {
+    res
+      .status(400)
+      .json({ error: "Subforum does not exists or does not have any posts" });
+  }
 };
 
 const getAllSubjectsBysubforumId = (req, res) => {
@@ -36,7 +43,17 @@ const getAllSubjectsBysubforumId = (req, res) => {
     WHERE s.subforum_id = (SELECT id FROM subforums WHERE name = $subforumName)
   `);
 
-  res.json(query.all(req.params));
+  let results = query.all(req.params);
+  if (results.length > 0) {
+    res.json(results);
+    return;
+  } else {
+    res
+      .status(400)
+      .json({
+        error: "The subforum does not exists or does not have any subjects",
+      });
+  }
 };
 
 const postNewSubject = (req, res) => {
@@ -65,17 +82,21 @@ const postNewSubject = (req, res) => {
 };
 
 const lockSubject = (req, res) => {
-  let query = db.prepare(/*sql*/`
+  let query = db.prepare(/*sql*/ `
     UPDATE subjects SET locked = $locked WHERE id = $subjectId
   `);
 
+  req.body.subjectId = req.params.subjectId;
+
   let info = query.run(req.body);
   if (info.changes) {
-    res.json({message: "Update succesfull"})
+    res.json({ message: "Update succesfull" });
+    return;
   } else {
-    res.status(404).json({error: "Update failed"})
+    res.status(404).json({ error: "Update failed" });
+    return;
   }
-}
+};
 
 const getAllSubjectsByForumId = (req, res) => {
   let query = db.prepare(/*sql*/ `
@@ -87,8 +108,15 @@ const getAllSubjectsByForumId = (req, res) => {
   `);
 
   let subjects = query.all(req.params);
-  res.json(subjects);
-}
+  if (subjects > 0) {
+    res.json(subjects);
+    return;
+  } else {
+    res.status(400).json({
+      error: "The forum does not exists or does not have any subjects",
+    });
+  }
+};
 
 module.exports = {
   getAllSubjects,

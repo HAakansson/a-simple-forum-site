@@ -18,6 +18,9 @@ module.exports = (req, res, next) => {
     roles.push("anon");
   }
 
+  // console.log(req.body)
+  // console.log(roles)
+
   // Remove last "/"" from the request path.
   let requestPath = req.path.endsWith("/")
     ? req.path.replace(/\/$/, "")
@@ -31,6 +34,8 @@ module.exports = (req, res, next) => {
       return url === requestPath;
     }
   });
+
+  console.log("ControlList 1: ", controlList)
 
   function hasRole(permission) {
     if (!permission) {
@@ -47,6 +52,8 @@ module.exports = (req, res, next) => {
   controlList = controlList.filter(([url, permission]) => {
     return hasRole(permission["ALL"]) || hasRole(permission[req.method]);
   });
+
+  console.log("controlList 2: ", controlList)
 
   if (Object.keys(controlList).length > 0) {
     next();

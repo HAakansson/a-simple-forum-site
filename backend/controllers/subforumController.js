@@ -20,7 +20,9 @@ const getModeratorsForSubforum = (req, res) => {
     WHERE s.name = $subforumName
   `);
 
-  res.json(query.all(req.params));
+  let moderators = query.all(req.params);
+  moderators = moderators.map((moderator) => ({ ...moderator, password: undefined }))
+  res.json(moderators);
 };
 
 const addNewModerator = (req, res) => {
@@ -28,16 +30,23 @@ const addNewModerator = (req, res) => {
     SELECT id FROM subforums WHERE name = $subforumName
   `);
   let result = query.get(req.body);
-  req.body.subforum_id = result.id;
+  if(result){
+    req.body.subforum_id = result.id;
+  } else {
+    res.status(400).json({ error: "No such subforum exists" });
+    return;
+  }
 
   query = db.prepare(/*sql*/ `
     INSERT INTO usersXsubforums (user_id, subforum_id) VALUES ($user_id, $subforum_id)
   `);
   let info = query.run(req.body);
   if (info.changes) {
-    res.json({ message: "Ny moderator tillagd" });
+    res.json({ message: "Promoting the user was succesfull" });
+    return;
   } else {
-    res.stauts(404).json({ error: "Misslyckades" });
+    res.stauts(404).json({ error: "Promotion failed" });
+    return;
   }
 };
 
@@ -46,7 +55,12 @@ const removeModerator = (req, res) => {
     SELECT id FROM subforums WHERE name = $subforumName
   `);
   let result = query.get(req.body);
-  req.body.subforum_id = result.id;
+  if (result) {
+    req.body.subforum_id = result.id;
+  } else {
+    res.status(400).json({ error: "No such subforum exists" });
+    return;
+  }
 
   query = db.prepare(/*sql*/ `
     DELETE FROM usersXsubforums WHERE user_id = $user_id AND subforum_id = $subforum_id
@@ -54,9 +68,11 @@ const removeModerator = (req, res) => {
 
   let info = query.run(req.body);
   if (info.changes) {
-    res.json({ message: "Borttagning av moderator lyckades" });
+    res.json({ message: "Demotion of user was successfull" });
+    return;
   } else {
-    res.status(404).json({ error: "Misslyckades" });
+    res.status(404).json({ error: "Demotion failed" });
+    return;
   }
 };
 
