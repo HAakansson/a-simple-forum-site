@@ -443,6 +443,152 @@
           }
         }
       }
+    },
+    "/api/v1/posts/getTotalCount": {
+      "get": {
+        "tags": ["Posts"],
+        "summary": "Requests the total number of posts on the forum. Roles allowed: *",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/posts/subforum/{subforumId}/getTotalCount": {
+      "get": {
+        "tags": ["Posts"],
+        "summary": "Requests the total number of posts by subforumId. Roles allowed: *",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "subforumId",
+            "properties": {
+              "subforumId": {
+                "type": "number",
+                "example": "1"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/posts/subforum/{subforumName}": {
+      "get": {
+        "tags": ["Posts"],
+        "summary": "Requests the total number of post sof by subforumName. Roles allowed: *",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "subforumName",
+            "properties": {
+              "subforumName": {
+                "type": "string",
+                "example": "Bollsport"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/posts/subject/{subjectId}": {
+      "get": {
+        "tags": ["Posts"],
+        "summary": "Requests the all post by subjectId. Roles allowed: *",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "subjectId",
+            "properties": {
+              "subjectId": {
+                "type": "number",
+                "example": "1"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/posts": {
+      "post": {
+        "tags": ["Posts"],
+        "summary": "Creates a new post. Roles allowed: moderator, admin",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "properties": {
+              "content": {
+                "type": "string",
+                "example": "The content of the post"
+              },
+              "subject_id": {
+                "type": "number",
+                "example": 2
+              },
+              "important": {
+                "type": "number",
+                "examplee": "0 (false), 1 (true)"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Add new post failed"
+          },
+          "403": {
+            "description": "You are not allowed to execute this action"
+          }
+        }
+      }
+    },
+    "/api/v1/posts/{id}": {
+      "delete": {
+        "tags": ["Posts"],
+        "summary": "Deletes a post by postId. Roles allowed: moderator, admin",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "properties": {
+              "id": {
+                "type": "number",
+                "examplee": 3
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Add new post failed"
+          },
+          "403": {
+            "description": "You are not allowed to execute this action"
+          }
+        }
+      }
     }
   }
 }

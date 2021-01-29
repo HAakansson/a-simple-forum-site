@@ -53,7 +53,7 @@ const postNewPost = (req, res) => {
   if (info.changes) {
     res.json({ message: "Post successfull" });
   } else {
-    res.json({ error: "Post failed." });
+    res.status(400).json({ error: "Add new post failed" });
   }
 };
 

@@ -35,6 +35,7 @@ export const forumStore = {
     },
     
     async fetchAllSubforums({ commit }) {
+      
       let subforums = await fetch("/api/v1/subforums");
       subforums = await subforums.json();
       commit("setSubforums", subforums);

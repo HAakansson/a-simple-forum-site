@@ -62,7 +62,7 @@ export const subjectStore = {
 
     async updateLockSubject(context, payload) {
       let result = await fetch(`/api/v1/subjects/lock/${payload.subjectId}`, {
-        method: "POST",
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
