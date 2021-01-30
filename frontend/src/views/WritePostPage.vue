@@ -99,7 +99,7 @@ export default class WritePostPage extends Vue {
   }
 
   get subforumName() {
-    return this.lastVisitedPath.split("/").pop();
+    return this.lastVisitedPath.split("/")[2];
   }
 
   async postNewPost() {

@@ -63,8 +63,9 @@ export const userStore = {
     },
 
     async logout({ commit }) {
-      let result = await fetch("/auth/v1/logout");
-      result = await result.json();
+      await fetch("/auth/v1/logout");
+      // result = await result.json();
+      // console.log(result)
       commit("setLoggedInUser", null);
     },
 

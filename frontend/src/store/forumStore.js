@@ -46,6 +46,7 @@ export const forumStore = {
         `/api/v1/subforums/moderators/${subforumName}`
       );
       moderators = await moderators.json();
+      // console.log("Moderators: ", moderators)
       commit("setModerators", moderators);
     },
 

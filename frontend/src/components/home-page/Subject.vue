@@ -42,7 +42,7 @@ export default class Subject extends Vue {
     return this.$route.path.replace("/", "").replace(/%20/g, " ");
   }
   get subforumName() {
-    return this.subforumPath.split("/")[1];
+    return this.subforumPath.split("/")[2];
   }
   get subjectId() {
     return parseInt(this.$route.path.split("/").pop());
@@ -60,6 +60,7 @@ export default class Subject extends Vue {
     return this.$store.state.postStore.posts;
   }
   get moderators() {
+    // console.log("Moderators: ", this.$store.state.forumStore.moderators);
     return this.$store.state.forumStore.moderators;
   }
   get loggedInUser() {
@@ -75,7 +76,7 @@ export default class Subject extends Vue {
     return false;
   }
 
-  @Watch("locked", {immediate: true})
+  @Watch("locked", { immediate: true })
   onLockedChange(newVal) {
     setTimeout(() => {
       let btn = document.querySelector(".reply");
