@@ -6,10 +6,10 @@
   "/api/v1/users*": {
     "ALL": "admin",
     "PUT": "author,moderator",
-    "GET": "moderator"
+    "GET": "*"
   },
   "/api/v1/forums*": { "GET": "*" },
-  "/api/v1/subforums/moderators*": { "GET": "moderator, admin" },
+  "/api/v1/subforums/moderators*": { "GET": "*" },
   "/api/v1/subforums/new-moderator": { "POST": "admin" },
   "/api/v1/subforums/remove-moderator": { "POST": "admin" },
   "/api/v1/subforums/update-moderator": { "PUT": "admin" },
